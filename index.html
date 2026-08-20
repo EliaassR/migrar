@@ -1,55 +1,783 @@
-<!doctype html>
-<html lang="es">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#07111f">
-<title>Rumbo — Emigrar desde Argentina</title>
-<meta name="description" content="Explorador interactivo de visas, residencia, Working Holiday y trabajo para ciudadanos argentinos.">
-<link rel="preconnect" href="https://flagcdn.com"><link rel="preconnect" href="https://images.unsplash.com">
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#090d14"><title>Rumbo — Emigrar y trabajar desde Argentina</title><link rel="preconnect" href="https://flagcdn.com">
+
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap');
-:root{--ink:#07111f;--blue:#173df5;--cyan:#67e8f9;--paper:#f5f4ef;--line:#d9dcd8;--lime:#c8ff5a;--white:#fff;--muted:#68717e}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:"DM Sans",sans-serif}.noise{position:fixed;inset:0;pointer-events:none;opacity:.035;z-index:99;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.75'/%3E%3C/svg%3E")}
-.nav{height:74px;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;position:absolute;top:0;width:100%;z-index:20;color:#fff}.brand{display:flex;gap:10px;align-items:center;font:700 18px Syne}.brandmark{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--lime);color:var(--ink);font-weight:800}.navlinks{display:flex;gap:28px}.nav a{text-decoration:none;color:inherit}.navlinks a{opacity:.76}.navcta{border:1px solid #ffffff50;padding:10px 16px;border-radius:999px}
-.hero{height:min(860px,96vh);min-height:680px;position:relative;overflow:hidden;background:#08111d;color:#fff}.hero-media{position:absolute;inset:0;background-image:url("https://images.unsplash.com/photo-1595434971780-79d5c20c5090?auto=format&fit=crop&fm=jpg&q=82&w=2200");background-size:cover;background-position:center;animation:zoom 18s ease-in-out infinite alternate}.hero-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(4,12,24,.92) 0%,rgba(4,12,24,.72) 45%,rgba(4,12,24,.15) 80%),linear-gradient(0deg,rgba(4,12,24,.8),transparent 55%)}@keyframes zoom{to{transform:scale(1.07)}}.hero-content{position:relative;z-index:2;padding:150px 5vw 80px;max-width:880px}.kicker{font:700 12px Syne;letter-spacing:.16em;color:var(--lime)}.kicker.dark{color:var(--blue)}h1,h2,h3{font-family:Syne;margin:0}h1{font-size:clamp(54px,8.5vw,118px);line-height:.86;letter-spacing:-.055em}h1 em{font-style:normal;color:var(--lime)}.hero p{font-size:19px;line-height:1.6;max-width:700px;color:#dce4ef;margin:28px 0}.hero-actions{display:flex;gap:10px;flex-wrap:wrap}.btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 18px;border-radius:999px;text-decoration:none;font-weight:700;border:1px solid transparent;cursor:pointer}.btn.primary{background:var(--lime);color:var(--ink)}.btn.glass{color:#fff;border-color:#ffffff45;background:#ffffff12;backdrop-filter:blur(10px)}.hero-stats{display:flex;gap:44px;margin-top:48px}.hero-stats strong{font:700 28px Syne;display:block}.hero-stats span{font-size:12px;color:#b8c5d5}.scroll{position:absolute;right:5vw;bottom:35px;z-index:3;font-size:11px;letter-spacing:.18em;writing-mode:vertical-rl}.orbits i{position:absolute;border:1px solid #ffffff18;border-radius:50%;z-index:1}.orbits i:nth-child(1){width:520px;height:520px;right:-100px;top:160px}.orbits i:nth-child(2){width:390px;height:390px;right:-35px;top:225px}.orbits i:nth-child(3){width:700px;height:700px;right:-190px;top:70px}
-.intro{display:grid;grid-template-columns:1.1fr .9fr;gap:8vw;padding:100px 5vw;max-width:1500px;margin:auto}.intro h2,.section-head h2,.guide h2{font-size:clamp(36px,5vw,68px);line-height:.98;letter-spacing:-.045em;margin-top:12px}.intro p{font-size:18px;line-height:1.7;color:var(--muted);align-self:end}.route-strip{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.route-strip article{padding:32px 3vw;border-right:1px solid var(--line);display:grid;gap:8px}.route-icon{font-size:26px;color:var(--blue)}.route-strip b{font:700 15px Syne}.route-strip small{color:var(--muted);line-height:1.4}
-.explorer{padding:110px 5vw}.section-head{display:flex;align-items:end;justify-content:space-between;gap:30px;margin-bottom:30px}.section-head p{color:var(--muted)}.filters{display:grid;grid-template-columns:2fr repeat(4,1fr);gap:10px}.searchbox{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:0 14px}.searchbox input{border:0!important;padding-left:0!important}.filters input,.filters select{width:100%;padding:13px 14px;border:1px solid var(--line);background:#fff;border-radius:14px;color:var(--ink);font:inherit;outline:none}.chips{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0 30px}.chip{border:1px solid var(--line);background:transparent;border-radius:999px;padding:9px 13px;cursor:pointer}.chip.active{background:var(--ink);color:#fff;border-color:var(--ink)}
-.country-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.country-card{position:relative;background:#fff;border:1px solid var(--line);border-radius:24px;padding:22px;min-height:355px;display:flex;flex-direction:column;transition:.35s cubic-bezier(.2,.8,.2,1);overflow:hidden}.country-card:hover{transform:translateY(-6px);box-shadow:0 24px 60px #07111f18;border-color:#aeb7c2}.topline{display:flex;justify-content:space-between;align-items:start}.flagimg{width:54px;height:38px;object-fit:cover;border-radius:7px;box-shadow:0 4px 15px #0002}.score{font:800 15px Syne;background:#eef0ed;border-radius:999px;padding:8px 10px}.score.hot{background:var(--lime)}.country-card h3{font-size:27px;margin-top:18px}.route{color:var(--blue);font-weight:700;margin:5px 0 14px}.country-card p{color:var(--muted);font-size:14px;line-height:1.5;margin:0 0 18px}.facts{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:auto}.fact{background:#f5f6f3;border-radius:12px;padding:10px}.fact small{display:block;color:#8a929d;font-size:10px;text-transform:uppercase;letter-spacing:.08em}.fact b{font-size:13px}.card-actions{display:flex;gap:7px;margin-top:14px}.mini{flex:1;border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px;cursor:pointer;font-weight:700}.mini.dark{background:var(--ink);color:#fff;border-color:var(--ink)}
-.compare-section{background:var(--ink);color:#fff;padding:110px 5vw}.compare-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.compare-card{border:1px solid #ffffff22;border-radius:22px;padding:22px;background:#ffffff08}.compare-card img{width:46px;border-radius:6px}.compare-card h3{font-size:25px;margin:14px 0}.compare-card p{color:#b8c4d2;line-height:1.6}.empty{grid-column:1/-1;border:1px dashed #ffffff35;padding:38px;text-align:center;border-radius:22px;color:#9aa7b7}.guide{padding:110px 5vw}.guide-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);margin-top:45px;border:1px solid var(--line)}.guide-grid article{background:var(--paper);padding:35px}.guide-grid b{font:700 13px Syne;color:var(--blue)}.guide-grid h3{font-size:22px;margin:35px 0 12px}.guide-grid p{color:var(--muted);line-height:1.55}
-footer{background:#050b12;color:#fff;padding:55px 5vw;display:grid;grid-template-columns:1fr 2fr 1fr;gap:30px;align-items:end}footer p,footer>span{color:#8996a7;font-size:13px;line-height:1.6}footer>span{text-align:right}dialog{width:min(760px,calc(100% - 28px));border:0;border-radius:26px;padding:0;background:#fff;color:var(--ink);box-shadow:0 40px 120px #0007}dialog::backdrop{background:#07111fcc;backdrop-filter:blur(8px)}.modal{padding:28px}.x{float:right;border:0;background:#edf0ed;width:38px;height:38px;border-radius:50%;font-size:23px;cursor:pointer}.modal-flag{width:70px;border-radius:8px}.modal h2{font-size:42px;margin:18px 0 8px}.modal-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:22px 0}.modal-grid div{background:#f4f5f2;border-radius:12px;padding:12px}.official{display:inline-block;background:var(--blue);color:#fff;text-decoration:none;padding:12px 16px;border-radius:999px;font-weight:700}.reveal{opacity:0;transform:translateY(20px)}.reveal.on{animation:up .55s forwards}@keyframes up{to{opacity:1;transform:none}}
-@media(max-width:950px){.navlinks{display:none}.filters{grid-template-columns:1fr 1fr}.country-grid{grid-template-columns:1fr 1fr}.route-strip{grid-template-columns:1fr 1fr}.intro{grid-template-columns:1fr}.guide-grid{grid-template-columns:1fr 1fr}footer{grid-template-columns:1fr}.compare-grid{grid-template-columns:1fr}footer>span{text-align:left}}
-@media(max-width:620px){.nav{padding:0 18px}.navcta{display:none}.hero{min-height:720px}.hero-content{padding:140px 20px 60px}.hero p{font-size:16px}.hero-stats{gap:22px}.intro,.explorer,.compare-section,.guide{padding:76px 20px}.route-strip,.filters,.country-grid,.guide-grid{grid-template-columns:1fr}.route-strip article{border-right:0;border-bottom:1px solid var(--line)}.section-head{align-items:start;flex-direction:column}.guide-grid article{padding:28px}.orbits{display:none}}
+:root{
+  --bg:#090b10;
+  --bg-soft:#0d1118;
+  --panel:#111722;
+  --panel-2:#151d2a;
+  --panel-3:#0d131c;
+  --text:#f6f8fb;
+  --muted:#95a1b4;
+  --line:#263142;
+  --line-soft:#1b2432;
+  --blue:#6ea8ff;
+  --blue-strong:#4f8cff;
+  --cyan:#66d9ef;
+  --green:#7bd9a5;
+  --amber:#e9bd6a;
+  --violet:#b79cff;
+  --danger:#ff9a9a;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:
+    radial-gradient(circle at 85% -10%,rgba(79,140,255,.08),transparent 26%),
+    radial-gradient(circle at -10% 35%,rgba(102,217,239,.05),transparent 22%),
+    var(--bg);
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text",Inter,Segoe UI,Roboto,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+a{color:inherit}
+button,input,select{font:inherit}
+button,a,input,select{-webkit-tap-highlight-color:transparent}
+.wrap{max-width:1120px;margin:auto;padding:0 24px}
+
+/* NAV */
+.nav{
+  position:sticky;top:0;z-index:30;
+  background:rgba(9,11,16,.86);
+  backdrop-filter:saturate(150%) blur(18px);
+  border-bottom:1px solid rgba(255,255,255,.055);
+}
+.nav .wrap{
+  min-height:60px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+}
+.brand{
+  font-size:13px;
+  font-weight:760;
+  letter-spacing:.11em;
+  text-decoration:none;
+  white-space:nowrap;
+}
+.brand b{color:var(--blue)}
+.navlinks{
+  display:flex;
+  gap:20px;
+  font-size:13px;
+  color:var(--muted);
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.navlinks::-webkit-scrollbar{display:none}
+.nav a{text-decoration:none}
+.navlinks a{
+  white-space:nowrap;
+  transition:color .18s ease;
+}
+.navlinks a:hover{color:var(--text)}
+
+/* HERO */
+.hero{
+  padding:96px 0 80px;
+  border-bottom:1px solid var(--line-soft);
+  position:relative;
+  overflow:hidden;
+}
+.hero:before{
+  content:"";
+  position:absolute;
+  width:520px;height:520px;
+  border-radius:50%;
+  right:-160px;top:-210px;
+  background:radial-gradient(circle,rgba(79,140,255,.16),rgba(102,217,239,.055) 38%,transparent 68%);
+  filter:blur(6px);
+  pointer-events:none;
+}
+.hero:after{
+  content:"";
+  position:absolute;
+  width:360px;height:360px;
+  border-radius:50%;
+  left:-180px;bottom:-220px;
+  background:radial-gradient(circle,rgba(183,156,255,.08),transparent 70%);
+  pointer-events:none;
+}
+.hero .wrap{position:relative;z-index:1}
+.eyebrow{
+  font-size:11px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--cyan);
+  font-weight:700;
+}
+.hero h1{
+  font-size:clamp(50px,8vw,88px);
+  line-height:.98;
+  letter-spacing:-.055em;
+  margin:16px 0 24px;
+  max-width:880px;
+  font-weight:650;
+}
+.hero p{
+  max-width:760px;
+  color:var(--muted);
+  font-size:18px;
+  line-height:1.65;
+  margin:0;
+}
+.hero-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:32px;
+}
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  min-height:44px;
+  padding:0 17px;
+  border-radius:11px;
+  border:1px solid var(--line);
+  background:var(--panel);
+  color:var(--text);
+  text-decoration:none;
+  font-size:13px;
+  font-weight:650;
+  transition:background .16s,border-color .16s,transform .16s,box-shadow .16s;
+}
+.btn:hover{
+  background:var(--panel-2);
+  border-color:#3b4c63;
+  transform:translateY(-1px);
+}
+.btn:active{transform:scale(.985)}
+.btn.primary{
+  background:linear-gradient(180deg,var(--blue),var(--blue-strong));
+  color:white;
+  border-color:rgba(255,255,255,.16);
+  box-shadow:0 8px 24px rgba(79,140,255,.22);
+}
+.btn.primary:hover{
+  box-shadow:0 12px 30px rgba(79,140,255,.28);
+  background:linear-gradient(180deg,#7db2ff,#5a94ff);
+}
+.hero-actions .btn{min-width:190px}
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+  margin-top:50px;
+}
+.stat{
+  padding:14px 0 0;
+  border-top:1px solid var(--line);
+}
+.stat strong{
+  display:block;
+  font-size:24px;
+  font-weight:650;
+  letter-spacing:-.03em;
+}
+.stat:nth-child(1) strong{color:var(--blue)}
+.stat:nth-child(2) strong{color:var(--cyan)}
+.stat:nth-child(3) strong{color:var(--green)}
+.stat:nth-child(4) strong{color:var(--violet)}
+.stat span{color:var(--muted);font-size:12px}
+
+/* SECTIONS */
+.section{padding:74px 0}
+.alt{
+  background:linear-gradient(180deg,#0c1118,#0d121a);
+  border-block:1px solid var(--line-soft);
+}
+.head{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:30px;
+  margin-bottom:28px;
+}
+.head h2{
+  font-size:clamp(32px,4vw,48px);
+  line-height:1.03;
+  letter-spacing:-.04em;
+  margin:8px 0 0;
+  font-weight:630;
+}
+.head p{
+  max-width:500px;
+  color:var(--muted);
+  line-height:1.6;
+  margin:0;
+}
+
+/* CONTROLS */
+.agebox{
+  display:grid;
+  grid-template-columns:1fr 2fr;
+  gap:18px;
+  background:linear-gradient(180deg,var(--panel),#0f1520);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:20px;
+}
+.agebox label{
+  display:block;
+  color:var(--muted);
+  font-size:12px;
+  margin-bottom:8px;
+}
+.agebox input,.filters input,.filters select{
+  width:100%;
+  min-height:44px;
+  background:var(--panel-3);
+  color:var(--text);
+  border:1px solid var(--line);
+  padding:11px 12px;
+  border-radius:10px;
+  outline:none;
+  transition:border-color .16s,box-shadow .16s,background .16s;
+}
+.agebox input:focus,.filters input:focus,.filters select:focus{
+  border-color:rgba(110,168,255,.75);
+  box-shadow:0 0 0 3px rgba(110,168,255,.09);
+  background:#101722;
+}
+.age-result b{font-size:20px;font-weight:630}
+.age-result p{color:var(--muted);line-height:1.6;margin:8px 0 0}
+
+/* STEPS */
+.steps{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:10px;
+}
+.step{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:13px;
+  padding:18px;
+  min-height:180px;
+}
+.step span{
+  font-size:10px;
+  color:var(--blue);
+  letter-spacing:.1em;
+}
+.step:nth-child(2) span{color:var(--cyan)}
+.step:nth-child(3) span{color:var(--green)}
+.step:nth-child(4) span{color:var(--amber)}
+.step:nth-child(5) span{color:var(--violet)}
+.step h3{font-size:16px;margin:24px 0 8px;font-weight:620}
+.step p{font-size:13px;color:var(--muted);line-height:1.55;margin:0}
+
+/* PROFILE */
+.profile-shell{
+  display:grid;
+  grid-template-columns:300px 1fr;
+  gap:12px;
+}
+.profile-list{display:grid;gap:7px}
+.profile-btn{
+  width:100%;
+  text-align:left;
+  background:transparent;
+  color:var(--muted);
+  border:1px solid transparent;
+  border-radius:10px;
+  padding:11px 12px;
+  cursor:pointer;
+  font-weight:560;
+  transition:.16s;
+}
+.profile-btn:hover{
+  background:#111823;
+  color:var(--text);
+}
+.profile-btn.active{
+  color:var(--text);
+  background:linear-gradient(180deg,#172131,#121a27);
+  border-color:#31425b;
+  box-shadow:inset 3px 0 0 var(--blue);
+}
+.profile-panel{
+  border:1px solid var(--line);
+  background:linear-gradient(180deg,var(--panel),#0f1620);
+  border-radius:15px;
+  padding:22px;
+  min-height:400px;
+}
+.profile-panel h3{
+  font-size:28px;
+  font-weight:630;
+  letter-spacing:-.025em;
+  margin:4px 0 10px;
+}
+.profile-panel>p{color:var(--muted);line-height:1.6;max-width:760px}
+.profile-meta{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin:18px 0;
+}
+.profile-meta div,.fact,.modal-grid div{
+  background:var(--panel-3);
+  border:1px solid var(--line-soft);
+  border-radius:10px;
+  padding:10px;
+}
+.profile-meta small,.fact small{
+  display:block;
+  color:#748196;
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:.07em;
+  margin-bottom:4px;
+}
+.profile-meta b,.fact b{font-size:12px;font-weight:610}
+.country-picks,.search-terms{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+  margin:9px 0 16px;
+}
+.country-pick{
+  border:1px solid #2e3c50;
+  background:#111925;
+  border-radius:999px;
+  padding:6px 9px;
+  font-size:11px;
+  color:#cbd7e7;
+}
+.search-term{
+  border:1px solid #2f3a4d;
+  background:#0d141d;
+  border-radius:7px;
+  padding:6px 9px;
+  font-size:11px;
+  color:#b8c7da;
+  font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
+}
+.apply-box{
+  border-left:2px solid var(--cyan);
+  padding-left:13px;
+  margin-top:16px;
+}
+.apply-box h4{margin:0 0 7px;font-size:14px}
+.apply-box p{margin:0;color:var(--muted);line-height:1.55;font-size:13px}
+.portal-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:7px;
+  margin-top:14px;
+}
+.portal-link{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  text-decoration:none;
+  border:1px solid var(--line);
+  background:var(--panel-3);
+  border-radius:9px;
+  padding:10px 11px;
+  font-size:12px;
+  transition:.16s;
+}
+.portal-link:hover{
+  background:#141d2a;
+  border-color:#38506e;
+}
+
+/* REMOTE GUIDE */
+.remote-guide{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+}
+.remote-guide article,.resource,.compare article{
+  border:1px solid var(--line);
+  background:linear-gradient(180deg,var(--panel),#101720);
+  border-radius:13px;
+  padding:16px;
+}
+.remote-guide span{color:var(--blue);font-size:10px;letter-spacing:.08em}
+.remote-guide article:nth-child(2) span{color:var(--cyan)}
+.remote-guide article:nth-child(3) span{color:var(--green)}
+.remote-guide article:nth-child(4) span{color:var(--amber)}
+.remote-guide h3{font-size:15px;margin:16px 0 7px;font-weight:620}
+.remote-guide p,.resource p,.compare p{
+  font-size:12px;
+  line-height:1.6;
+  color:var(--muted);
+}
+
+/* FILTERS */
+.filters{
+  display:grid;
+  grid-template-columns:2fr repeat(4,1fr);
+  gap:8px;
+}
+.chips{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+  margin:12px 0 24px;
+}
+.chip{
+  border:1px solid var(--line);
+  background:#0d131c;
+  color:var(--muted);
+  padding:8px 10px;
+  border-radius:999px;
+  cursor:pointer;
+  transition:.16s;
+}
+.chip:hover{color:var(--text);background:#141b26}
+.chip.active{
+  background:linear-gradient(180deg,#183052,#132640);
+  color:#dceaff;
+  border-color:#35557c;
+}
+
+/* CARDS */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+.card{
+  background:linear-gradient(180deg,var(--panel),#0f151e);
+  border:1px solid var(--line);
+  border-radius:15px;
+  padding:17px;
+  display:flex;
+  flex-direction:column;
+  min-height:365px;
+  transition:border-color .16s,background .16s,transform .16s,box-shadow .16s;
+}
+.card:hover{
+  border-color:#3c4d66;
+  background:linear-gradient(180deg,#131b27,#101720);
+  transform:translateY(-2px);
+  box-shadow:0 10px 28px rgba(0,0,0,.18);
+}
+.top{display:flex;justify-content:space-between;align-items:center}
+.flag{width:42px;height:28px;object-fit:cover;border-radius:4px}
+.score{
+  font-size:11px;
+  color:var(--green);
+  font-weight:650;
+  background:rgba(123,217,165,.07);
+  border:1px solid rgba(123,217,165,.14);
+  padding:4px 7px;
+  border-radius:999px;
+}
+.card h3{font-size:22px;margin:15px 0 5px;font-weight:620;letter-spacing:-.02em}
+.route{font-size:12px;color:var(--blue);font-weight:620}
+.desc{font-size:13px;color:var(--muted);line-height:1.55;margin:11px 0 15px}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:auto}
+.age-tag{
+  margin-top:9px;
+  padding:8px 9px;
+  border:1px solid var(--line);
+  border-radius:8px;
+  font-size:11px;
+  color:var(--muted);
+}
+.age-tag.good{
+  border-color:rgba(123,217,165,.3);
+  color:var(--green);
+  background:rgba(123,217,165,.045);
+}
+.age-tag.warn{
+  border-color:rgba(233,189,106,.28);
+  color:var(--amber);
+  background:rgba(233,189,106,.045);
+}
+.actions{display:flex;gap:6px;margin-top:9px}
+.actions button{
+  flex:1;
+  min-height:40px;
+  border:1px solid var(--line);
+  background:#0d131c;
+  color:var(--text);
+  padding:9px;
+  border-radius:9px;
+  cursor:pointer;
+  font-weight:600;
+  transition:.16s;
+}
+.actions button:hover{
+  background:#151e2a;
+  border-color:#3c4d66;
+}
+.actions .primary{
+  background:linear-gradient(180deg,#1b365d,#172d4c);
+  color:#dceaff;
+  border-color:#36587f;
+}
+
+/* COMPARE + RESOURCES */
+.compare{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:9px;
+}
+.compare img{width:38px;border-radius:4px}
+.empty{
+  grid-column:1/-1;
+  padding:28px;
+  text-align:center;
+  border:1px dashed var(--line);
+  border-radius:13px;
+  color:var(--muted);
+}
+.resources{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:9px;
+}
+.resource h3{margin:0 0 7px;font-size:15px;font-weight:620}
+.resource a{color:var(--cyan);font-size:13px}
+
+/* FOOTER */
+footer{
+  border-top:1px solid var(--line-soft);
+  padding:34px 0 48px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.6;
+}
+
+/* MODAL */
+dialog{
+  width:min(760px,calc(100% - 24px));
+  max-height:88vh;
+  overflow:auto;
+  border:1px solid var(--line);
+  border-radius:15px;
+  background:var(--panel);
+  color:var(--text);
+  padding:0;
+  box-shadow:0 30px 80px rgba(0,0,0,.45);
+}
+dialog::backdrop{background:rgba(0,0,0,.72);backdrop-filter:blur(4px)}
+.modal{padding:21px}
+.x{
+  float:right;
+  border:1px solid var(--line);
+  background:var(--panel-3);
+  color:var(--text);
+  width:36px;height:36px;
+  border-radius:9px;
+  font-size:18px;
+  cursor:pointer;
+}
+.modal h2{font-size:34px;margin:13px 0 5px;font-weight:620}
+.modal-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin:17px 0}
+.modal small{color:var(--muted)}
+.joblinks{display:flex;flex-wrap:wrap;gap:7px;margin:9px 0 17px}
+.joblinks a{
+  font-size:12px;
+  color:#d5e7ff;
+  background:#101927;
+  text-decoration:none;
+  border:1px solid #2b3d56;
+  padding:7px 9px;
+  border-radius:8px;
+}
+.checklist{padding-left:18px;color:var(--muted);line-height:1.7;font-size:13px}
+.official{
+  display:inline-block;
+  background:linear-gradient(180deg,var(--blue),var(--blue-strong));
+  color:white;
+  padding:10px 13px;
+  border-radius:9px;
+  text-decoration:none;
+  font-weight:650;
+}
+
+/* TABLET */
+@media(max-width:980px){
+  .steps{grid-template-columns:repeat(2,1fr)}
+  .grid{grid-template-columns:1fr 1fr}
+  .filters{grid-template-columns:1fr 1fr}
+  .resources{grid-template-columns:1fr 1fr}
+  .profile-shell{grid-template-columns:1fr}
+  .profile-list{grid-template-columns:1fr 1fr}
+  .profile-meta{grid-template-columns:1fr 1fr}
+  .remote-guide{grid-template-columns:1fr 1fr}
+  .compare{grid-template-columns:1fr}
+  .agebox{grid-template-columns:1fr}
+}
+
+/* MOBILE */
+@media(max-width:640px){
+  .wrap{padding:0 16px}
+  .nav .wrap{
+    min-height:58px;
+    align-items:center;
+  }
+  .navlinks{
+    max-width:72%;
+    gap:16px;
+    font-size:12px;
+  }
+  .hero{
+    padding:68px 0 56px;
+  }
+  .hero h1{
+    font-size:46px;
+    letter-spacing:-.05em;
+    margin-bottom:18px;
+  }
+  .hero p{
+    font-size:16px;
+    line-height:1.58;
+  }
+  .hero-actions{
+    flex-direction:column;
+    gap:8px;
+  }
+  .hero-actions .btn{
+    width:100%;
+    min-height:48px;
+  }
+  .stats{
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    margin-top:38px;
+  }
+  .section{padding:54px 0}
+  .head{
+    flex-direction:column;
+    align-items:start;
+    gap:12px;
+    margin-bottom:22px;
+  }
+  .head p{font-size:14px}
+  .agebox{padding:16px}
+  .steps,.grid,.filters,.resources,.profile-list,.profile-meta,.portal-grid,.remote-guide{
+    grid-template-columns:1fr;
+  }
+  .step{min-height:auto}
+  .profile-panel{padding:17px}
+  .profile-btn{
+    min-height:44px;
+  }
+  .filters{
+    gap:8px;
+  }
+  .filters input,.filters select{
+    min-height:46px;
+  }
+  .chips{
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    padding-bottom:4px;
+    scrollbar-width:none;
+  }
+  .chips::-webkit-scrollbar{display:none}
+  .chip{
+    flex:0 0 auto;
+    min-height:38px;
+  }
+  .card{
+    min-height:0;
+    padding:16px;
+  }
+  .actions{
+    flex-direction:column;
+  }
+  .actions button{
+    width:100%;
+    min-height:44px;
+  }
+  .modal-grid{grid-template-columns:1fr}
+  dialog{
+    width:calc(100% - 16px);
+    max-height:92vh;
+    border-radius:14px;
+  }
+  .modal{padding:17px}
+}
+
+/* VERY SMALL MOBILE */
+@media(max-width:380px){
+  .navlinks{display:none}
+  .hero h1{font-size:40px}
+  .stats{grid-template-columns:1fr}
+}
 </style>
-</head>
-<body>
-<div class="noise"></div>
-<nav class="nav"><a class="brand" href="#top"><span class="brandmark">R</span><span>RUMBO</span></a><div class="navlinks"><a href="#explorar">Explorar</a><a href="#rutas">Rutas</a><a href="#comparar">Comparar</a></div><a class="navcta" href="#explorar">Encontrar destino</a></nav>
-<header class="hero" id="top"><div class="hero-media"></div><div class="hero-overlay"></div><div class="orbits"><i></i><i></i><i></i></div>
-<div class="hero-content"><span class="kicker">PASAPORTE ARGENTINO · GUÍA 2026</span><h1>Tu próximo país<br><em>empieza acá.</em></h1>
-<p>Descubrí dónde podés vivir y trabajar, qué visas existen, si necesitás sponsor y qué tan viable es cada destino para un ciudadano argentino.</p>
-<div class="hero-actions"><a class="btn primary" href="#explorar">Explorar 40 destinos</a><a class="btn glass" href="#rutas">Ver rutas rápidas</a></div>
-<div class="hero-stats"><div><strong>40</strong><span>destinos</span></div><div><strong>19</strong><span>Working Holiday</span></div><div><strong>8+</strong><span>rutas regionales</span></div></div></div><div class="scroll">SCROLL <span>↓</span></div></header>
-<main>
-<section class="intro"><div><span class="kicker dark">NO ES TURISMO</span><h2>Entrar a un país no es lo mismo que poder trabajar.</h2></div><p>Rumbo separa residencia, permiso laboral, Working Holiday, sponsor y posibilidades de permanencia. Cada ficha incluye un enlace al organismo migratorio oficial del país.</p></section>
-<section class="route-strip" id="rutas"><article><span class="route-icon">◎</span><b>MERCOSUR</b><small>La vía más directa en Sudamérica</small></article><article><span class="route-icon">↗</span><b>WORKING HOLIDAY</b><small>19 acuerdos informados para argentinos</small></article><article><span class="route-icon">◇</span><b>SKILLED / TALENT</b><small>Profesionales, oficios y perfiles demandados</small></article><article><span class="route-icon">⌂</span><b>PROYECTO DE VIDA</b><small>Residencia permanente y ciudadanía</small></article></section>
-<section class="explorer" id="explorar"><div class="section-head"><div><span class="kicker dark">EXPLORADOR</span><h2>40 destinos. Una decisión.</h2></div><p id="counter"></p></div>
-<div class="filters"><label class="searchbox"><span>⌕</span><input id="q" placeholder="Buscar país, idioma o visa…"></label><select id="region"><option value="">Todas las regiones</option></select><select id="wh"><option value="">Cualquier visa</option><option value="Sí">Working Holiday</option><option value="No">Sin Working Holiday</option></select><select id="sponsor"><option value="">Sponsor: cualquiera</option><option value="No">Sin sponsor</option><option value="Depende">Depende</option><option value="Frecuente">Frecuente</option><option value="Sí">Requiere sponsor</option></select><select id="sort"><option value="ease">Mayor facilidad</option><option value="name">A–Z</option></select></div>
-<div class="chips"><button class="chip active" data-mode="all">Todos</button><button class="chip" data-mode="easy">Más accesibles</button><button class="chip" data-mode="mercosur">Regional / MERCOSUR</button><button class="chip" data-mode="wh">Working Holiday</button><button class="chip" data-mode="long">Permanencia alta</button></div><div id="cards" class="country-grid"></div></section>
-<section class="compare-section" id="comparar"><div class="section-head"><div><span class="kicker">COMPARADOR</span><h2>Elegí hasta 3 países.</h2></div><p>Comparalos lado a lado sin perderte entre pestañas.</p></div><div id="compare" class="compare-grid"></div></section>
-<section class="guide"><span class="kicker dark">ANTES DE DECIDIR</span><h2>Seis preguntas que cambian todo.</h2><div class="guide-grid">
-<article><b>01</b><h3>¿Qué edad tenés?</h3><p>Puede definir elegibilidad para Working Holiday y puntajes migratorios.</p></article><article><b>02</b><h3>¿Qué sabés hacer?</h3><p>Experiencia, profesión y oficios demandados pueden abrir visas específicas.</p></article><article><b>03</b><h3>¿Qué idiomas hablás?</h3><p>La visa puede ser posible, pero el empleo real depende mucho del idioma.</p></article><article><b>04</b><h3>¿Cuánto podés invertir?</h3><p>Fondos demostrables, seguro, trámites, pasajes y meses iniciales importan.</p></article><article><b>05</b><h3>¿Necesitás sponsor?</h3><p>Algunas rutas permiten llegar sin oferta; otras dependen de un empleador.</p></article><article><b>06</b><h3>¿Querés quedarte?</h3><p>Residencia permanente y ciudadanía cambian mucho entre destinos.</p></article></div></section>
-</main>
-<footer><div class="brand"><span class="brandmark">R</span><span>RUMBO</span></div><p>Guía informativa para ciudadanía argentina. Verificá siempre requisitos actuales en las fuentes oficiales antes de pagar o viajar.</p><span>Última revisión estructural · 19 AGO 2026</span></footer>
-<dialog id="dlg"><div class="modal"><button id="close" class="x">×</button><div id="modalBody"></div></div></dialog><script>
-const data=[{"name": "Uruguay", "flag": "🇺🇾", "region": "Sudamérica", "ease": 95, "route": "Residencia MERCOSUR", "work": "Sí, con residencia", "sponsor": "No", "wh": "No", "language": "Español", "permanent": "Alta", "notes": "De las rutas más simples para argentinos. Residencia por nacionalidad MERCOSUR y acceso al trabajo conforme a la normativa local.", "official": "https://www.gub.uy/ministerio-relaciones-exteriores/comunicacion/publicaciones/residencias-mercosur", "code": "uy"}, {"name": "Brasil", "flag": "🇧🇷", "region": "Sudamérica", "ease": 93, "route": "Residencia MERCOSUR", "work": "Sí, con residencia", "sponsor": "No", "wh": "No", "language": "Portugués", "permanent": "Alta", "notes": "Residencia basada en nacionalidad MERCOSUR; mercado laboral grande y múltiples ciudades con perfiles económicos muy distintos.", "official": "https://www.gov.br/mj/pt-br/assuntos/migracoes", "code": "br"}, {"name": "Paraguay", "flag": "🇵🇾", "region": "Sudamérica", "ease": 92, "route": "Residencia MERCOSUR", "work": "Sí, con residencia", "sponsor": "No", "wh": "No", "language": "Español / Guaraní", "permanent": "Alta", "notes": "Residencia MERCOSUR; costo de vida comparativamente bajo en varias ciudades.", "official": "https://www.migraciones.gov.py/", "code": "py"}, {"name": "Chile", "flag": "🇨🇱", "region": "Sudamérica", "ease": 90, "route": "Residencia por reciprocidad / MERCOSUR", "work": "Sí, según permiso", "sponsor": "Generalmente no para residencia regional", "wh": "No", "language": "Español", "permanent": "Alta", "notes": "Existe ruta migratoria regional para nacionales de países vinculados al MERCOSUR. Revisar subcategoría vigente antes de aplicar.", "official": "https://serviciomigraciones.cl/", "code": "cl"}, {"name": "Bolivia", "flag": "🇧🇴", "region": "Sudamérica", "ease": 89, "route": "Residencia MERCOSUR", "work": "Sí, con residencia", "sponsor": "No", "wh": "No", "language": "Español", "permanent": "Alta", "notes": "Ruta regional favorable para argentinos mediante acuerdos de residencia.", "official": "https://www.migracion.gob.bo/", "code": "bo"}, {"name": "Perú", "flag": "🇵🇪", "region": "Sudamérica", "ease": 88, "route": "Residencia MERCOSUR", "work": "Sí, según calidad migratoria", "sponsor": "No en la ruta regional", "wh": "No", "language": "Español", "permanent": "Alta", "notes": "Los argentinos cuentan con vías regionales de residencia. Confirmar requisitos documentales actuales en Migraciones Perú.", "official": "https://www.gob.pe/migraciones", "code": "pe"}, {"name": "Colombia", "flag": "🇨🇴", "region": "Sudamérica", "ease": 87, "route": "Visa/residencia regional", "work": "Sí, según permiso", "sponsor": "No necesariamente", "wh": "No", "language": "Español", "permanent": "Media/Alta", "notes": "Cuenta con categorías migratorias favorables para nacionales de la región.", "official": "https://www.cancilleria.gov.co/tramites_servicios/visa", "code": "co"}, {"name": "Ecuador", "flag": "🇪🇨", "region": "Sudamérica", "ease": 86, "route": "Residencia regional", "work": "Sí, según residencia", "sponsor": "No necesariamente", "wh": "No", "language": "Español", "permanent": "Media/Alta", "notes": "Vías de residencia temporal regional; revisar requisitos y vigencia en Cancillería de Ecuador.", "official": "https://www.cancilleria.gob.ec/visas-y-servicios-para-extranjeros/", "code": "ec"}, {"name": "España", "flag": "🇪🇸", "region": "Europa", "ease": 82, "route": "Trabajo / autónomo / nómada digital / estudios / WH", "work": "Sí, según autorización", "sponsor": "Depende de la ruta", "wh": "Sí", "language": "Español", "permanent": "Alta", "notes": "Muy atractiva para argentinos por idioma, variedad de residencias y el régimen reducido de nacionalidad para nacionales iberoamericanos, sujeto a requisitos legales.", "official": "https://www.inclusion.gob.es/web/migraciones/vivir-en-espana", "code": "es"}, {"name": "Portugal", "flag": "🇵🇹", "region": "Europa", "ease": 80, "route": "Trabajo / búsqueda de trabajo / remoto / WH", "work": "Sí, según visa", "sponsor": "No siempre", "wh": "Sí", "language": "Portugués", "permanent": "Alta", "notes": "Varias rutas de residencia laboral y profesional. Requisitos y categorías pueden cambiar con frecuencia.", "official": "https://vistos.mne.gov.pt/en/", "code": "pt"}, {"name": "Alemania", "flag": "🇩🇪", "region": "Europa", "ease": 79, "route": "Skilled worker / Opportunity Card / WH", "work": "Sí, según permiso", "sponsor": "No siempre", "wh": "Sí", "language": "Alemán / Inglés", "permanent": "Alta", "notes": "Destaca por rutas para trabajadores cualificados y búsqueda de empleo; homologación y nivel de idioma pueden ser determinantes.", "official": "https://www.make-it-in-germany.com/en/visa-residence", "code": "de"}, {"name": "Francia", "flag": "🇫🇷", "region": "Europa", "ease": 72, "route": "Trabajo / talento / WH", "work": "Sí, según visa", "sponsor": "Frecuente", "wh": "Sí", "language": "Francés", "permanent": "Media/Alta", "notes": "Working Holiday disponible para argentinos dentro de sus condiciones; también existen permisos de trabajo y talento.", "official": "https://france-visas.gouv.fr/en/", "code": "fr"}, {"name": "Irlanda", "flag": "🇮🇪", "region": "Europa", "ease": 71, "route": "Employment permit / WH", "work": "Sí, según permiso", "sponsor": "Frecuente", "wh": "Sí", "language": "Inglés", "permanent": "Media/Alta", "notes": "Mercado angloparlante de la UE. Permisos laborales diferenciados y Working Holiday para argentinos sujeto a cupos/requisitos.", "official": "https://www.irishimmigration.ie/", "code": "ie"}, {"name": "Países Bajos", "flag": "🇳🇱", "region": "Europa", "ease": 69, "route": "Highly skilled / sponsor / WH", "work": "Sí, según permiso", "sponsor": "Frecuente", "wh": "Sí", "language": "Neerlandés / Inglés", "permanent": "Media/Alta", "notes": "Excelente mercado profesional, aunque muchas rutas laborales requieren empleador reconocido.", "official": "https://ind.nl/en", "code": "nl"}, {"name": "Suecia", "flag": "🇸🇪", "region": "Europa", "ease": 67, "route": "Work permit / WH", "work": "Sí, según permiso", "sponsor": "Frecuente", "wh": "Sí", "language": "Sueco / Inglés", "permanent": "Media", "notes": "Buen mercado para perfiles cualificados; Working Holiday disponible bajo el acuerdo vigente.", "official": "https://www.migrationsverket.se/English/Private-individuals.html", "code": "se"}, {"name": "Dinamarca", "flag": "🇩🇰", "region": "Europa", "ease": 66, "route": "Positive List / work schemes / WH", "work": "Sí, según permiso", "sponsor": "Frecuente", "wh": "Sí", "language": "Danés / Inglés", "permanent": "Media", "notes": "Programas laborales orientados a perfiles demandados y acuerdo Working Holiday.", "official": "https://www.nyidanmark.dk/en-GB", "code": "dk"}, {"name": "Noruega", "flag": "🇳🇴", "region": "Europa", "ease": 65, "route": "Skilled worker / WH", "work": "Sí, según permiso", "sponsor": "Frecuente", "wh": "Sí", "language": "Noruego / Inglés", "permanent": "Media/Alta", "notes": "Salarios altos y costo de vida alto. Working Holiday disponible; empleo cualificado requiere condiciones específicas.", "official": "https://www.udi.no/en/want-to-apply/work-immigration/", "code": "no"}, {"name": "Austria", "flag": "🇦🇹", "region": "Europa", "ease": 64, "route": "Red-White-Red Card / WH", "work": "Sí, según permiso", "sponsor": "Frecuente", "wh": "Sí", "language": "Alemán", "permanent": "Media/Alta", "notes": "Sistema orientado a cualificaciones, ocupaciones y puntajes; también Working Holiday.", "official": "https://www.migration.gv.at/en/", "code": "at"}, {"name": "Polonia", "flag": "🇵🇱", "region": "Europa", "ease": 63, "route": "Work permit / WH", "work": "Sí, según permiso", "sponsor": "Frecuente", "wh": "Sí", "language": "Polaco / Inglés", "permanent": "Media", "notes": "Costo de vida inferior al de Europa occidental en varias ciudades y acuerdo Working Holiday.", "official": "https://www.gov.pl/web/udsc-en", "code": "pl"}, {"name": "Hungría", "flag": "🇭🇺", "region": "Europa", "ease": 61, "route": "Employment / WH", "work": "Sí, según permiso", "sponsor": "Frecuente", "wh": "Sí", "language": "Húngaro / Inglés", "permanent": "Media", "notes": "Working Holiday y permisos por empleo; revisar categorías vigentes, que han cambiado en años recientes.", "official": "https://enterhungary.gov.hu/eh/?en", "code": "hu"}, {"name": "Eslovaquia", "flag": "🇸🇰", "region": "Europa", "ease": 60, "route": "Employment / WH", "work": "Sí, según permiso", "sponsor": "Frecuente", "wh": "Sí", "language": "Eslovaco / Inglés", "permanent": "Media", "notes": "Acuerdo Working Holiday y residencias ligadas a empleo.", "official": "https://www.mic.iom.sk/en/residence.html", "code": "sk"}, {"name": "Eslovenia", "flag": "🇸🇮", "region": "Europa", "ease": 60, "route": "Work permit / WH", "work": "Sí, según permiso", "sponsor": "Frecuente", "wh": "Sí", "language": "Esloveno / Inglés", "permanent": "Media", "notes": "Working Holiday disponible y permisos combinados de residencia/trabajo.", "official": "https://www.gov.si/en/topics/entry-and-residence/", "code": "si"}, {"name": "Armenia", "flag": "🇦🇲", "region": "Europa/Asia", "ease": 62, "route": "WH / residencia por empleo", "work": "Sí, según permiso", "sponsor": "Depende", "wh": "Sí", "language": "Armenio / Ruso / Inglés", "permanent": "Media", "notes": "Argentina mantiene acuerdo de Vacaciones y Trabajo; revisar condiciones específicas antes de viajar.", "official": "https://migration.am/", "code": "am"}, {"name": "Australia", "flag": "🇦🇺", "region": "Oceanía", "ease": 78, "route": "Work and Holiday / Skilled / Employer Sponsored", "work": "Sí, según visa", "sponsor": "No para WH; sí en varias rutas", "wh": "Sí", "language": "Inglés", "permanent": "Alta", "notes": "Uno de los destinos más populares. La vía Work and Holiday es temporal; skilled y employer sponsored pueden conducir a residencia según categoría.", "official": "https://immi.homeaffairs.gov.au/visas/working-in-australia", "code": "au"}, {"name": "Nueva Zelanda", "flag": "🇳🇿", "region": "Oceanía", "ease": 76, "route": "Working Holiday / Accredited Employer / Skilled", "work": "Sí, según visa", "sponsor": "No para WH; sí en empleo", "wh": "Sí", "language": "Inglés", "permanent": "Alta", "notes": "Working Holiday para argentinos y rutas por empleo acreditado/cualificado.", "official": "https://www.immigration.govt.nz/", "code": "nz"}, {"name": "Japón", "flag": "🇯🇵", "region": "Asia", "ease": 68, "route": "Working Holiday / work visa", "work": "Sí, según visa", "sponsor": "No para WH; habitual para trabajo", "wh": "Sí", "language": "Japonés", "permanent": "Media", "notes": "Working Holiday disponible. Para carrera a largo plazo, el idioma y el tipo de profesión pesan mucho.", "official": "https://www.mofa.go.jp/j_info/visit/visa/index.html", "code": "jp"}, {"name": "Corea del Sur", "flag": "🇰🇷", "region": "Asia", "ease": 66, "route": "Working Holiday / employment", "work": "Sí, según visa", "sponsor": "No para WH; habitual para trabajo", "wh": "Sí", "language": "Coreano", "permanent": "Media", "notes": "Acuerdo Working Holiday y diversas visas de empleo. Mercado competitivo; idioma suma mucho.", "official": "https://www.visa.go.kr/", "code": "kr"}, {"name": "Canadá", "flag": "🇨🇦", "region": "Norteamérica", "ease": 70, "route": "Express Entry / PNP / work permit / study", "work": "Sí, según permiso", "sponsor": "Depende", "wh": "No acuerdo bilateral general listado por Cancillería", "language": "Inglés / Francés", "permanent": "Alta", "notes": "Sistema amplio pero competitivo. Express Entry y programas provinciales dependen de edad, idioma, estudios y experiencia.", "official": "https://www.canada.ca/en/services/immigration-citizenship.html", "code": "ca"}, {"name": "Estados Unidos", "flag": "🇺🇸", "region": "Norteamérica", "ease": 45, "route": "H-1B / L-1 / O-1 / EB / otras", "work": "Sí, con estatus autorizado", "sponsor": "Muy frecuente", "wh": "No", "language": "Inglés", "permanent": "Variable", "notes": "Muchas rutas, pero para empleo convencional suele ser más complejo y depender de sponsor, lotería o categorías profesionales/inmigrantes específicas.", "official": "https://travel.state.gov/content/travel/en/us-visas/employment.html", "code": "us"}, {"name": "Reino Unido", "flag": "🇬🇧", "region": "Europa", "ease": 62, "route": "Skilled Worker / Global Talent / otras", "work": "Sí, según visa", "sponsor": "Frecuente", "wh": "No acuerdo WH argentino listado por Cancillería", "language": "Inglés", "permanent": "Alta", "notes": "Skilled Worker requiere normalmente empleador sponsor autorizado; Global Talent apunta a perfiles destacados.", "official": "https://www.gov.uk/browse/visas-immigration/work-visas", "code": "gb"}, {"name": "Italia", "flag": "🇮🇹", "region": "Europa", "ease": 58, "route": "Trabajo / autónomo / digital nomad / ciudadanía si corresponde", "work": "Sí, según permiso", "sponsor": "Frecuente en empleo", "wh": "No", "language": "Italiano", "permanent": "Alta", "notes": "Las rutas laborales para no-UE pueden estar sujetas a cupos. Si existe ciudadanía italiana por ascendencia, el escenario cambia completamente.", "official": "https://vistoperitalia.esteri.it/home/en", "code": "it"}, {"name": "Bélgica", "flag": "🇧🇪", "region": "Europa", "ease": 59, "route": "Single Permit / EU Blue Card", "work": "Sí, según permiso", "sponsor": "Frecuente", "wh": "No", "language": "Francés / Neerlandés / Alemán", "permanent": "Media/Alta", "notes": "Permiso único para residencia y trabajo; requisitos varían por región.", "official": "https://dofi.ibz.be/en", "code": "be"}, {"name": "Finlandia", "flag": "🇫🇮", "region": "Europa", "ease": 60, "route": "Specialist / employed person / startup", "work": "Sí, según permiso", "sponsor": "Frecuente", "wh": "No", "language": "Finés / Sueco / Inglés", "permanent": "Media/Alta", "notes": "Buenas vías para especialistas, tecnología y emprendimiento; costo de vida elevado.", "official": "https://migri.fi/en/working-in-finland", "code": "fi"}, {"name": "Chequia", "flag": "🇨🇿", "region": "Europa", "ease": 58, "route": "Employee Card / Blue Card", "work": "Sí, según permiso", "sponsor": "Frecuente", "wh": "No", "language": "Checo / Inglés", "permanent": "Media", "notes": "Employee Card y Blue Card son rutas típicas para nacionales de terceros países.", "official": "https://frs.gov.cz/en/", "code": "cz"}, {"name": "Suiza", "flag": "🇨🇭", "region": "Europa", "ease": 42, "route": "Work permit para terceros países", "work": "Sí, con permiso", "sponsor": "Sí, normalmente", "wh": "No", "language": "Alemán / Francés / Italiano", "permanent": "Media", "notes": "Salarios altos pero acceso laboral más restringido para no UE/EFTA; suele priorizarse alta cualificación.", "official": "https://www.sem.admin.ch/sem/en/home/themen/arbeit.html", "code": "ch"}, {"name": "Emiratos Árabes Unidos", "flag": "🇦🇪", "region": "Asia", "ease": 64, "route": "Employment / Green / Golden visas", "work": "Sí, según visa", "sponsor": "Frecuente", "wh": "No", "language": "Árabe / Inglés", "permanent": "Baja", "notes": "Mercado internacional y tributación atractiva para muchos perfiles, pero el concepto de residencia permanente es distinto al europeo/americano.", "official": "https://u.ae/en/information-and-services/visa-and-emirates-id", "code": "ae"}, {"name": "Singapur", "flag": "🇸🇬", "region": "Asia", "ease": 48, "route": "Employment Pass / S Pass", "work": "Sí, según pase", "sponsor": "Sí", "wh": "No", "language": "Inglés", "permanent": "Variable", "notes": "Muy competitivo y orientado a perfiles profesionales con salarios/credenciales determinados.", "official": "https://www.mom.gov.sg/passes-and-permits", "code": "sg"}, {"name": "México", "flag": "🇲🇽", "region": "Norteamérica", "ease": 67, "route": "Residencia temporal con permiso de trabajo / oferta", "work": "Sí, con autorización", "sponsor": "Depende", "wh": "No", "language": "Español", "permanent": "Media/Alta", "notes": "Idioma favorable para argentinos. Hay residencia temporal por solvencia y rutas asociadas a oferta laboral; trabajar requiere autorización correspondiente.", "official": "https://www.gob.mx/inm", "code": "mx"}, {"name": "Costa Rica", "flag": "🇨🇷", "region": "Centroamérica", "ease": 60, "route": "Residencia / nómada digital / categorías especiales", "work": "Limitado según categoría", "sponsor": "Depende", "wh": "No", "language": "Español", "permanent": "Media", "notes": "Atractiva para remoto y estilo de vida; no todas las residencias temporales permiten empleo local.", "official": "https://www.migracion.go.cr/", "code": "cr"}, {"name": "Panamá", "flag": "🇵🇦", "region": "Centroamérica", "ease": 58, "route": "Residencias y permisos laborales", "work": "Sí, según permiso", "sponsor": "Depende", "wh": "No", "language": "Español", "permanent": "Media", "notes": "Centro regional de negocios. La residencia y el permiso de trabajo son conceptos que pueden requerir trámites separados.", "official": "https://www.migracion.gob.pa/", "code": "pa"}];
-const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)]; const cards=$('#cards'), compare=$('#compare'), dlg=$('#dlg'), body=$('#modalBody'); let mode='all', selected=[];
-const flag=x=>`https://flagcdn.com/w160/${x.code}.png`;
-[...new Set(data.map(x=>x.region))].sort().forEach(r=>$('#region').insertAdjacentHTML('beforeend',`<option>${r}</option>`));
-const label=e=>e>=85?'Muy favorable':e>=70?'Favorable':e>=60?'Intermedia':'Exigente';
-function filt(){let arr=data.filter(x=>{const hay=(x.name+' '+x.route+' '+x.language+' '+x.notes).toLowerCase().includes($('#q').value.toLowerCase());let mm=mode==='all'||(mode==='easy'&&x.ease>=80)||(mode==='mercosur'&&(/mercosur|regional/i.test(x.route)||['Chile','Colombia'].includes(x.name)))||(mode==='wh'&&x.wh==='Sí')||(mode==='long'&&['Alta','Media/Alta'].includes(x.permanent));return hay&&(!$('#region').value||x.region===$('#region').value)&&(!$('#wh').value||x.wh===$('#wh').value)&&(!$('#sponsor').value||x.sponsor===$('#sponsor').value)&&mm;});arr.sort((a,b)=>$('#sort').value==='name'?a.name.localeCompare(b.name):b.ease-a.ease);render(arr)}
-function render(arr){$('#counter').textContent=`${arr.length} destinos encontrados`;cards.innerHTML=arr.map((x,i)=>`<article class="country-card reveal" style="animation-delay:${Math.min(i,8)*40}ms"><div class="topline"><img class="flagimg" src="${flag(x)}" alt="Bandera de ${x.name}" loading="lazy"><span class="score ${x.ease>=85?'hot':''}">${x.ease}/100</span></div><h3>${x.name}</h3><div class="route">${x.route}</div><p>${x.notes}</p><div class="facts"><div class="fact"><small>Sponsor</small><b>${x.sponsor}</b></div><div class="fact"><small>Idioma</small><b>${x.language}</b></div><div class="fact"><small>Working Holiday</small><b>${x.wh}</b></div><div class="fact"><small>Permanencia</small><b>${x.permanent}</b></div></div><div class="card-actions"><button class="mini" data-detail="${x.name}">Ficha</button><button class="mini dark" data-compare="${x.name}">${selected.includes(x.name)?'✓ Comparando':'Comparar'}</button></div></article>`).join('');$$('[data-detail]').forEach(b=>b.onclick=()=>detail(b.dataset.detail));$$('[data-compare]').forEach(b=>b.onclick=()=>toggle(b.dataset.compare));requestAnimationFrame(()=>$$('.reveal').forEach(el=>el.classList.add('on')))}
-function detail(n){const x=data.find(a=>a.name===n);body.innerHTML=`<img class="modal-flag" src="${flag(x)}" alt=""><h2>${x.name}</h2><div class="route">${x.route}</div><p>${x.notes}</p><div class="modal-grid"><div><small>Facilidad orientativa</small><br><b>${x.ease}/100 · ${label(x.ease)}</b></div><div><small>Trabajo</small><br><b>${x.work}</b></div><div><small>Sponsor</small><br><b>${x.sponsor}</b></div><div><small>Idioma</small><br><b>${x.language}</b></div></div><p><b>Antes de aplicar:</b> verificá fondos mínimos, seguro, antecedentes/apostillas, autorización efectiva para trabajar y condiciones de renovación.</p><a class="official" href="${x.official}" target="_blank" rel="noopener">Abrir fuente oficial ↗</a>`;dlg.showModal()}
-function toggle(n){selected.includes(n)?selected=selected.filter(v=>v!==n):selected.length<3&&selected.push(n);drawCompare();filt()}
-function drawCompare(){compare.innerHTML=selected.length?selected.map(n=>{const x=data.find(a=>a.name===n);return `<article class="compare-card"><img src="${flag(x)}" alt=""><h3>${x.name}</h3><p><b>${x.ease}/100</b> · ${label(x.ease)}<br>${x.route}<br><br>Sponsor: ${x.sponsor}<br>WH: ${x.wh}<br>Idioma: ${x.language}<br>Permanencia: ${x.permanent}</p><button class="mini" data-remove="${x.name}">Quitar</button></article>`}).join(''):'<div class="empty">Elegí “Comparar” en las fichas de países para armar tu shortlist.</div>';$$('[data-remove]').forEach(b=>b.onclick=()=>toggle(b.dataset.remove))}
-['q','region','wh','sponsor','sort'].forEach(id=>$('#'+id).addEventListener(id==='q'?'input':'change',filt));$$('.chip').forEach(b=>b.onclick=()=>{$$('.chip').forEach(x=>x.classList.remove('active'));b.classList.add('active');mode=b.dataset.mode;filt()});$('#close').onclick=()=>dlg.close();dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});filt();drawCompare();
+
+</head><body>
+<nav class="nav"><div class="wrap"><a class="brand" href="#top">RUM<b>BO</b></a><div class="navlinks"><a href="#edad">Edad</a><a href="#primeros">Primeros pasos</a><a href="#habilidades">Habilidades</a><a href="#explorar">Países</a><a href="#buscar">Trabajo</a></div></div></nav>
+<header class="hero" id="top"><div class="wrap"><div class="eyebrow">CIUDADANÍA ARGENTINA · GUÍA 2026</div><h1>Emigrar con un plan, no a ciegas.</h1><p>Visas, edad, permisos de trabajo, sponsor, portales de empleo y primeros pasos. No se trata de dónde podés entrar como turista, sino de dónde podés construir una ruta legal para vivir y trabajar.</p><div class="hero-actions"><a class="btn primary" href="#edad">Empezar por mi edad</a><a class="btn" href="#explorar">Explorar países</a></div><div class="stats"><div class="stat"><strong>40</strong><span>destinos</span></div><div class="stat"><strong>19</strong><span>Working Holiday</span></div><div class="stat"><strong>8+</strong><span>rutas regionales</span></div><div class="stat"><strong>100%</strong><span>orientado a argentinos</span></div></div></div></header>
+<section class="section" id="edad"><div class="wrap"><div class="head"><div><div class="eyebrow">01 · EDAD</div><h2>Qué cambia según tus años.</h2></div><p>La edad puede cerrar Working Holiday, pero no la emigración: después ganan peso skilled worker, sponsor, estudios, MERCOSUR y residencias profesionales.</p></div><div class="agebox"><div><label>Tu edad</label><input id="age" type="number" min="18" max="75" value="33"></div><div class="age-result" id="ageResult"></div></div></div></section>
+<section class="section alt" id="primeros"><div class="wrap"><div class="head"><div><div class="eyebrow">02 · PRIMEROS PASOS</div><h2>El orden correcto.</h2></div><p>Evita aplicar a cientos de trabajos que no pueden contratarte legalmente.</p></div><div class="steps"><div class="step"><span>PASO 01</span><h3>Elegí 3–5 países</h3><p>Filtrá por idioma, edad, sponsor, costo de entrada y permanencia.</p></div><div class="step"><span>PASO 02</span><h3>Confirmá la visa</h3><p>Revisá requisitos, fondos, documentación, edad, cupos y permiso laboral.</p></div><div class="step"><span>PASO 03</span><h3>Adaptá tu CV</h3><p>Idioma y formato local. Priorizá logros concretos y títulos de puesto usados allí.</p></div><div class="step"><span>PASO 04</span><h3>Buscá con intención</h3><p>Portales oficiales, vacantes abiertas a extranjeros y empresas con sponsor.</p></div><div class="step"><span>PASO 05</span><h3>Prepará papeles</h3><p>Pasaporte, antecedentes, apostillas, títulos, referencias, idioma, fondos y seguro.</p></div></div></div></section>
+
+<section class="section" id="habilidades">
+<div class="wrap">
+  <div class="head">
+    <div><div class="eyebrow">03 · HABILIDADES</div><h2>¿Qué trabajo podrías conseguir?</h2></div>
+    <p>Elegí tu perfil. Te mostramos tipos de puesto, países donde vale la pena mirar, términos de búsqueda y portales para empezar a postularte desde Argentina.</p>
+  </div>
+  <div class="profile-shell">
+    <div class="profile-list" id="profileList"></div>
+    <div class="profile-panel" id="profilePanel"></div>
+  </div>
+</div>
+</section>
+
+<section class="section alt" id="desde-argentina">
+<div class="wrap">
+  <div class="head">
+    <div><div class="eyebrow">04 · POSTULAR DESDE ARGENTINA</div><h2>Buscá antes de comprar el pasaje.</h2></div>
+    <p>El objetivo es llegar con entrevistas, contactos o una oferta en curso. En rutas con sponsor, esto puede ser directamente imprescindible.</p>
+  </div>
+  <div class="remote-guide">
+    <article><span>01 · PERFIL</span><h3>CV local + LinkedIn</h3><p>Prepará una versión en inglés y otra en el idioma local cuando corresponda. Indicá “Argentina · open to relocation” y tu disponibilidad para entrevistas remotas.</p></article>
+    <article><span>02 · BÚSQUEDA</span><h3>Usá palabras correctas</h3><p>Agregá “visa sponsorship”, “relocation”, “international applicants”, “seasonal”, “entry level” o el título exacto del oficio.</p></article>
+    <article><span>03 · FILTRO</span><h3>Validá al empleador</h3><p>Antes de invertir tiempo, comprobá si puede contratar extranjeros y si la vacante exige derecho laboral ya existente en el país.</p></article>
+    <article><span>04 · ENTREVISTA</span><h3>Preguntá temprano</h3><p>En la primera conversación confirmá ubicación, modalidad, salario, visa/sponsor, fecha estimada y si aceptan candidatos todavía fuera del país.</p></article>
+  </div>
+</div>
+</section>
+
+<section class="section" id="explorar"><div class="wrap"><div class="head"><div><div class="eyebrow">05 · DESTINOS</div><h2>Compará con criterio.</h2></div><p id="counter"></p></div><div class="filters"><input id="q" placeholder="Buscar país, ruta o idioma"><select id="region"><option value="">Todas las regiones</option></select><select id="wh"><option value="">Cualquier visa</option><option value="Sí">Con Working Holiday</option><option value="No">Sin Working Holiday</option></select><select id="sponsor"><option value="">Sponsor: cualquiera</option><option value="No">Sin sponsor</option><option value="Depende">Depende</option><option value="Frecuente">Frecuente</option><option value="Sí">Sí</option></select><select id="sort"><option value="ease">Mayor facilidad</option><option value="name">A–Z</option></select></div><div class="chips"><button class="chip active" data-mode="all">Todos</button><button class="chip" data-mode="age">Según mi edad</button><button class="chip" data-mode="easy">Más accesibles</button><button class="chip" data-mode="mercosur">Regional / MERCOSUR</button><button class="chip" data-mode="wh">Working Holiday</button><button class="chip" data-mode="long">Permanencia alta</button></div><div id="cards" class="grid"></div></div></section>
+<section class="section alt"><div class="wrap"><div class="head"><div><div class="eyebrow">06 · COMPARADOR</div><h2>Tu shortlist.</h2></div><p>Elegí hasta 3 destinos.</p></div><div id="compare" class="compare"></div></div></section>
+<section class="section" id="buscar"><div class="wrap"><div class="head"><div><div class="eyebrow">07 · EMPLEO</div><h2>Dónde empezar a buscar.</h2></div><p>Priorizá fuentes que permitan identificar ofertas compatibles con extranjeros.</p></div><div class="resources"><div class="resource"><h3>Europa · EURES</h3><p>Portal oficial de la UE con vacantes y condiciones de vida y trabajo.</p><a target="_blank" href="https://eures.europa.eu/index_es">Abrir EURES ↗</a></div><div class="resource"><h3>Canadá · Job Bank</h3><p>Sección para candidatos extranjeros; identifica puestos abiertos a candidatos internacionales.</p><a target="_blank" href="https://www.jobbank.gc.ca/findajob/foreign-candidates">Abrir Job Bank ↗</a></div><div class="resource"><h3>Alemania · Make it in Germany</h3><p>Trabajo, reconocimiento profesional, visas y Opportunity Card.</p><a target="_blank" href="https://www.make-it-in-germany.com/en/">Abrir portal ↗</a></div><div class="resource"><h3>Reino Unido · Find a job</h3><p>Buscador oficial de empleo; para Skilled Worker verificá además sponsor autorizado.</p><a target="_blank" href="https://www.gov.uk/find-a-job">Abrir GOV.UK ↗</a></div><div class="resource"><h3>LinkedIn</h3><p>Buscá “visa sponsorship”, “relocation” y el nombre local de tu profesión.</p><a target="_blank" href="https://www.linkedin.com/jobs/">Abrir LinkedIn Jobs ↗</a></div><div class="resource"><h3>Regla de seguridad</h3><p>No pagues a un supuesto empleador por “asegurarte” un puesto o visa. Verificá empresa, dominio y trámite migratorio.</p></div></div></div></section>
+<footer><div class="wrap"><b>RUMBO</b><br>Guía informativa. Las reglas migratorias cambian y cada solicitud se evalúa individualmente. Confirmá siempre requisitos en las fuentes oficiales enlazadas.</div></footer>
+<dialog id="dlg"><div class="modal"><button class="x" id="close">×</button><div id="modalBody"></div></div></dialog>
+<script>
+
+const profiles={"it": {"title": "IT · Programación · Datos", "icon": "⌘", "jobs": ["Software Developer", "Frontend / Backend Developer", "QA / Automation", "DevOps / Cloud", "Data Analyst", "Cybersecurity", "IT Support"], "countries": ["Alemania", "Irlanda", "Países Bajos", "Portugal", "España", "Canadá", "Reino Unido", "Australia", "Finlandia", "Suecia"], "need": "Portfolio/GitHub, experiencia demostrable e inglés. Para puestos junior, el sponsor suele ser bastante más difícil.", "terms": ["software developer visa sponsorship", "backend developer relocation", "frontend engineer international applicants", "devops sponsorship", "IT support english speaking"], "how": "Empezá por empresas tecnológicas internacionales y roles que mencionen relocation o sponsorship. Si sos junior, priorizá empresas remotas/internacionales y acumulá experiencia antes de depender de un sponsor.", "portals": [["EURES", "https://eures.europa.eu/index_es"], ["Make it in Germany", "https://www.make-it-in-germany.com/en/working-in-germany/job-listings"], ["Canada Job Bank", "https://www.jobbank.gc.ca/findajob/foreign-candidates"], ["GOV.UK Find a job", "https://www.gov.uk/find-a-job"], ["LinkedIn Jobs", "https://www.linkedin.com/jobs/"]]}, "agro": {"title": "Cosecha · Agricultura · Temporada", "icon": "⌁", "jobs": ["Fruit Picker", "Harvest Worker", "Farm Hand", "Greenhouse Worker", "Packing / Sorting", "Vineyard Worker", "Food Processing"], "countries": ["España", "Francia", "Italia", "Portugal", "Alemania", "Canadá", "Australia*", "Nueva Zelanda*"], "need": "Suele requerir resistencia física, flexibilidad horaria y disponibilidad estacional. El acceso migratorio cambia mucho según país.", "terms": ["seasonal farm worker", "fruit picker", "harvest worker", "vineyard seasonal worker", "greenhouse worker", "food processing seasonal"], "how": "Aplicá con meses de anticipación. En Europa, EURES confirma que agricultura, turismo y procesamiento de alimentos concentran trabajo estacional. Ojo: una vacante no te concede permiso laboral. Nueva Zelanda RSE, por ejemplo, está orientada principalmente a países del Pacífico, por lo que no debe asumirse como ruta disponible para argentinos.", "portals": [["EURES", "https://eures.europa.eu/index_es"], ["Jobopré Francia", "https://eures.europa.eu/jobopre_en"], ["Canada Job Bank", "https://www.jobbank.gc.ca/findajob/foreign-candidates"], ["Workforce Australia", "https://www.workforceaustralia.gov.au/individuals/jobs/"], ["Immigration NZ seasonal info", "https://www.immigration.govt.nz/work/requirements-for-work-visas/green-list-occupations-qualifications-and-skills/global-workforce-seasonal-visa-jobs-list/"]]}, "oficios": {"title": "Oficios · Construcción · Mantenimiento", "icon": "◇", "jobs": ["Electrician", "Welder", "Plumber", "Carpenter", "HVAC Technician", "Mechanic", "Construction Worker", "Machine Operator"], "countries": ["Alemania", "Canadá", "Australia", "Nueva Zelanda", "Irlanda", "Noruega"], "need": "Experiencia comprobable y, en oficios regulados, reconocimiento/licencia local. Inglés o idioma local mejora mucho la empleabilidad.", "terms": ["electrician sponsorship", "welder visa sponsorship", "carpenter relocation", "HVAC technician sponsorship", "mechanic international applicants"], "how": "Buscá por oficio exacto y certificación. Antes de postularte masivamente, verificá si tu oficio requiere licencia local y si existe una ruta para trabajadores cualificados.", "portals": [["EURES", "https://eures.europa.eu/index_es"], ["Canada Job Bank", "https://www.jobbank.gc.ca/findajob/foreign-candidates"], ["Make it in Germany", "https://www.make-it-in-germany.com/en/"], ["Workforce Australia", "https://www.workforceaustralia.gov.au/individuals/jobs/"], ["Careers NZ", "https://www.careers.govt.nz/jobs-database/"]]}, "salud": {"title": "Salud · Cuidado", "icon": "+", "jobs": ["Nurse", "Care Worker", "Aged Care", "Physiotherapist", "Medical Technician", "Healthcare Assistant"], "countries": ["Alemania", "Irlanda", "Reino Unido", "Canadá", "Australia", "Nueva Zelanda", "España"], "need": "Es uno de los sectores donde la homologación, matrícula, idioma y antecedentes profesionales pueden ser obligatorios.", "terms": ["registered nurse sponsorship", "healthcare assistant sponsorship", "aged care visa sponsorship", "care worker international recruitment"], "how": "Primero resolvé si tu título puede reconocerse. No conviene empezar por las vacantes si después la profesión regulada no admite ejercer con tus credenciales actuales.", "portals": [["EURES", "https://eures.europa.eu/index_es"], ["GOV.UK Find a job", "https://www.gov.uk/find-a-job"], ["Canada Job Bank", "https://www.jobbank.gc.ca/findajob/foreign-candidates"], ["Make it in Germany", "https://www.make-it-in-germany.com/en/"]]}, "gastronomia": {"title": "Gastronomía · Hotelería · Turismo", "icon": "○", "jobs": ["Cook / Chef", "Kitchen Assistant", "Waiter", "Barista", "Housekeeping", "Hotel Reception", "Resort Staff"], "countries": ["España", "Portugal", "Irlanda", "Francia", "Alemania", "Australia", "Nueva Zelanda", "Emiratos Árabes Unidos"], "need": "Experiencia práctica, idioma funcional y disponibilidad para turnos. Algunos puestos cualificados de cocina pueden tener mejores opciones migratorias que roles básicos.", "terms": ["chef visa sponsorship", "cook relocation", "hotel staff international applicants", "seasonal hospitality", "resort jobs accommodation"], "how": "Para temporada, aplicá antes del verano/invierno local. Buscá hoteles, resorts y cadenas grandes: suelen tener procesos más estructurados que pequeños comercios.", "portals": [["EURES", "https://eures.europa.eu/index_es"], ["JobsIreland", "https://jobsireland.ie/"], ["Workforce Australia", "https://www.workforceaustralia.gov.au/individuals/jobs/"], ["LinkedIn Jobs", "https://www.linkedin.com/jobs/"]]}, "logistica": {"title": "Logística · Depósito · Producción", "icon": "▦", "jobs": ["Warehouse Operative", "Picker / Packer", "Forklift Operator", "Production Worker", "Delivery / Logistics", "Machine Operator"], "countries": ["Alemania", "Países Bajos", "Canadá", "Australia", "España", "Irlanda"], "need": "Para conducción o autoelevador pueden pedir licencia/certificación local. Los roles básicos rara vez justifican sponsor por sí solos.", "terms": ["warehouse visa sponsorship", "picker packer relocation", "forklift operator sponsorship", "production worker international applicants"], "how": "Si necesitás sponsor, apuntá más a operadores especializados y empresas logísticas grandes. Para roles básicos, una Working Holiday o residencia previa suele ser mucho más realista.", "portals": [["EURES", "https://eures.europa.eu/index_es"], ["Canada Job Bank", "https://www.jobbank.gc.ca/findajob/foreign-candidates"], ["Workforce Australia", "https://www.workforceaustralia.gov.au/individuals/jobs/"], ["LinkedIn Jobs", "https://www.linkedin.com/jobs/"]]}, "ventas": {"title": "Ventas · Atención al cliente", "icon": "↗", "jobs": ["Customer Support", "Sales Development", "Account Executive", "Call Center", "Customer Success", "Retail"], "countries": ["España", "Portugal", "Irlanda", "Países Bajos", "Emiratos Árabes Unidos", "Alemania"], "need": "Idiomas y experiencia comercial pesan mucho. En centros internacionales se buscan combinaciones de español + inglés.", "terms": ["Spanish speaking customer support", "Spanish sales representative relocation", "customer success Spanish speaker", "multilingual support"], "how": "Explotá el español como ventaja: buscá “Spanish speaking” junto al puesto. Portugal, Irlanda y hubs multinacionales europeos suelen concentrar equipos multilingües.", "portals": [["EURES", "https://eures.europa.eu/index_es"], ["JobsIreland", "https://jobsireland.ie/"], ["LinkedIn Jobs", "https://www.linkedin.com/jobs/"]]}, "ingenieria": {"title": "Ingeniería · Técnica", "icon": "△", "jobs": ["Mechanical Engineer", "Electrical Engineer", "Civil Engineer", "Automation Engineer", "CAD Technician", "Maintenance Engineer"], "countries": ["Alemania", "Canadá", "Australia", "Nueva Zelanda", "Irlanda", "Países Bajos", "Noruega"], "need": "Título, experiencia, inglés y eventualmente reconocimiento profesional. Especialidades técnicas demandadas pueden encajar mejor en skilled/sponsor.", "terms": ["mechanical engineer sponsorship", "electrical engineer relocation", "automation engineer visa sponsorship", "civil engineer international applicants"], "how": "Usá el título profesional local equivalente y resaltá software, normas técnicas, proyectos y años de experiencia. Verificá si el puesto requiere colegiación.", "portals": [["EURES", "https://eures.europa.eu/index_es"], ["Make it in Germany", "https://www.make-it-in-germany.com/en/"], ["Canada Job Bank", "https://www.jobbank.gc.ca/findajob/foreign-candidates"], ["Workforce Australia", "https://www.workforceaustralia.gov.au/individuals/jobs/"]]}};
+function renderProfileList(){
+ const list=$('#profileList');
+ list.innerHTML=Object.entries(profiles).map(([k,p],i)=>`<button class="profile-btn ${i===0?'active':''}" data-profile="${k}">${p.icon} &nbsp; ${p.title}</button>`).join('');
+ $$('.profile-btn').forEach(b=>b.onclick=()=>{$$('.profile-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderProfile(b.dataset.profile)});
+ renderProfile(Object.keys(profiles)[0]);
+}
+function renderProfile(key){
+ const p=profiles[key], panel=$('#profilePanel');
+ panel.innerHTML=`<div class="eyebrow">PERFIL LABORAL</div><h3>${p.title}</h3><p>${p.need}</p>
+ <div class="profile-meta"><div><small>Tipos de trabajo</small><b>${p.jobs.length} ejemplos</b></div><div><small>Países sugeridos</small><b>${p.countries.length} destinos</b></div><div><small>Aplicación</small><b>Desde Argentina</b></div></div>
+ <h4>Puestos que vas a encontrar</h4><div class="country-picks">${p.jobs.map(x=>`<span class="country-pick">${x}</span>`).join('')}</div>
+ <h4>Países donde mirar primero</h4><div class="country-picks">${p.countries.map(x=>`<span class="country-pick">${x}</span>`).join('')}</div>
+ <h4>Qué escribir en el buscador</h4><div class="search-terms">${p.terms.map(x=>`<span class="search-term">${x}</span>`).join('')}</div>
+ <div class="apply-box"><h4>Cómo postularte desde Argentina</h4><p>${p.how}</p></div>
+ <div class="portal-grid">${p.portals.map(x=>`<a class="portal-link" href="${x[1]}" target="_blank" rel="noopener"><span>${x[0]}</span><b>↗</b></a>`).join('')}</div>`;
+}
+
+const data=[{"name": "Uruguay", "flag": "🇺🇾", "region": "Sudamérica", "ease": 95, "route": "Residencia MERCOSUR", "work": "Sí, con residencia", "sponsor": "No", "wh": "No", "language": "Español", "permanent": "Alta", "notes": "De las rutas más simples para argentinos. Residencia por nacionalidad MERCOSUR y acceso al trabajo conforme a la normativa local.", "official": "https://www.gub.uy/ministerio-relaciones-exteriores/comunicacion/publicaciones/residencias-mercosur", "code": "uy", "jobs": [["Uruguay Concursa", "https://www.gub.uy/uruguay-concursa/"], ["LinkedIn Jobs", "https://www.linkedin.com/jobs/"]], "whAge": "No aplica", "startTip": "Resolvé primero residencia/documentación local; luego buscá empleo como residente habilitado."}, {"name": "Brasil", "flag": "🇧🇷", "region": "Sudamérica", "ease": 93, "route": "Residencia MERCOSUR", "work": "Sí, con residencia", "sponsor": "No", "wh": "No", "language": "Portugués", "permanent": "Alta", "notes": "Residencia basada en nacionalidad MERCOSUR; mercado laboral grande y múltiples ciudades con perfiles económicos muy distintos.", "official": "https://www.gov.br/mj/pt-br/assuntos/migracoes", "code": "br", "jobs": [["Emprega Brasil", "https://empregabrasil.mte.gov.br/"], ["LinkedIn Jobs", "https://www.linkedin.com/jobs/"]], "whAge": "No aplica", "startTip": "Resolvé primero residencia/documentación local; luego buscá empleo como residente habilitado."}, {"name": "Paraguay", "flag": "🇵🇾", "region": "Sudamérica", "ease": 92, "route": "Residencia MERCOSUR", "work": "Sí, con residencia", "sponsor": "No", "wh": "No", "language": "Español / Guaraní", "permanent": "Alta", "notes": "Residencia MERCOSUR; costo de vida comparativamente bajo en varias ciudades.", "official": "https://www.migraciones.gov.py/", "code": "py", "jobs": [["MTESS", "https://www.mtess.gov.py/"], ["LinkedIn Jobs", "https://www.linkedin.com/jobs/"]], "whAge": "No aplica", "startTip": "Resolvé primero residencia/documentación local; luego buscá empleo como residente habilitado."}, {"name": "Chile", "flag": "🇨🇱", "region": "Sudamérica", "ease": 90, "route": "Residencia por reciprocidad / MERCOSUR", "work": "Sí, según permiso", "sponsor": "Generalmente no para residencia regional", "wh": "No", "language": "Español", "permanent": "Alta", "notes": "Existe ruta migratoria regional para nacionales de países vinculados al MERCOSUR. Revisar subcategoría vigente antes de aplicar.", "official": "https://serviciomigraciones.cl/", "code": "cl", "jobs": [["Bolsa Nacional de Empleo", "https://www.bne.cl/"], ["LinkedIn Jobs", "https://www.linkedin.com/jobs/"]], "whAge": "No aplica", "startTip": "Resolvé primero residencia/documentación local; luego buscá empleo como residente habilitado."}, {"name": "Bolivia", "flag": "🇧🇴", "region": "Sudamérica", "ease": 89, "route": "Residencia MERCOSUR", "work": "Sí, con residencia", "sponsor": "No", "wh": "No", "language": "Español", "permanent": "Alta", "notes": "Ruta regional favorable para argentinos mediante acuerdos de residencia.", "official": "https://www.migracion.gob.bo/", "code": "bo", "jobs": [["Ministerio de Trabajo", "https://www.mintrabajo.gob.bo/"], ["LinkedIn Jobs", "https://www.linkedin.com/jobs/"]], "whAge": "No aplica", "startTip": "Resolvé primero residencia/documentación local; luego buscá empleo como residente habilitado."}, {"name": "Perú", "flag": "🇵🇪", "region": "Sudamérica", "ease": 88, "route": "Residencia MERCOSUR", "work": "Sí, según calidad migratoria", "sponsor": "No en la ruta regional", "wh": "No", "language": "Español", "permanent": "Alta", "notes": "Los argentinos cuentan con vías regionales de residencia. Confirmar requisitos documentales actuales en Migraciones Perú.", "official": "https://www.gob.pe/migraciones", "code": "pe", "jobs": [["Empleos Perú", "https://www.empleosperu.gob.pe/"], ["LinkedIn Jobs", "https://www.linkedin.com/jobs/"]], "whAge": "No aplica", "startTip": "Resolvé primero residencia/documentación local; luego buscá empleo como residente habilitado."}, {"name": "Colombia", "flag": "🇨🇴", "region": "Sudamérica", "ease": 87, "route": "Visa/residencia regional", "work": "Sí, según permiso", "sponsor": "No necesariamente", "wh": "No", "language": "Español", "permanent": "Media/Alta", "notes": "Cuenta con categorías migratorias favorables para nacionales de la región.", "official": "https://www.cancilleria.gov.co/tramites_servicios/visa", "code": "co", "jobs": [["Servicio Público de Empleo", "https://www.serviciodeempleo.gov.co/"], ["LinkedIn Jobs", "https://www.linkedin.com/jobs/"]], "whAge": "No aplica", "startTip": "Resolvé primero residencia/documentación local; luego buscá empleo como residente habilitado."}, {"name": "Ecuador", "flag": "🇪🇨", "region": "Sudamérica", "ease": 86, "route": "Residencia regional", "work": "Sí, según residencia", "sponsor": "No necesariamente", "wh": "No", "language": "Español", "permanent": "Media/Alta", "notes": "Vías de residencia temporal regional; revisar requisitos y vigencia en Cancillería de Ecuador.", "official": "https://www.cancilleria.gob.ec/visas-y-servicios-para-extranjeros/", "code": "ec", "jobs": [["Encuentra Empleo", "https://encuentraempleo.trabajo.gob.ec/"], ["LinkedIn Jobs", "https://www.linkedin.com/jobs/"]], "whAge": "No aplica", "startTip": "Resolvé primero residencia/documentación local; luego buscá empleo como residente habilitado."}, {"name": "España", "flag": "🇪🇸", "region": "Europa", "ease": 82, "route": "Trabajo / autónomo / nómada digital / estudios / WH", "work": "Sí, según autorización", "sponsor": "Depende de la ruta", "wh": "Sí", "language": "Español", "permanent": "Alta", "notes": "Muy atractiva para argentinos por idioma, variedad de residencias y el régimen reducido de nacionalidad para nacionales iberoamericanos, sujeto a requisitos legales.", "official": "https://www.inclusion.gob.es/web/migraciones/vivir-en-espana", "code": "es", "jobs": [["EURES", "https://eures.europa.eu/index_es"], ["Empléate", "https://empleate.gob.es/empleo/"]], "whAge": "Verificar límite exacto", "startTip": "Compará Working Holiday con una ruta profesional: WH suele simplificar la entrada, pero es temporal."}, {"name": "Portugal", "flag": "🇵🇹", "region": "Europa", "ease": 80, "route": "Trabajo / búsqueda de trabajo / remoto / WH", "work": "Sí, según visa", "sponsor": "No siempre", "wh": "Sí", "language": "Portugués", "permanent": "Alta", "notes": "Varias rutas de residencia laboral y profesional. Requisitos y categorías pueden cambiar con frecuencia.", "official": "https://vistos.mne.gov.pt/en/", "code": "pt", "jobs": [["EURES", "https://eures.europa.eu/index_es"], ["IEFP", "https://iefponline.iefp.pt/"]], "whAge": "Verificar límite exacto", "startTip": "Compará Working Holiday con una ruta profesional: WH suele simplificar la entrada, pero es temporal."}, {"name": "Alemania", "flag": "🇩🇪", "region": "Europa", "ease": 79, "route": "Skilled worker / Opportunity Card / WH", "work": "Sí, según permiso", "sponsor": "No siempre", "wh": "Sí", "language": "Alemán / Inglés", "permanent": "Alta", "notes": "Destaca por rutas para trabajadores cualificados y búsqueda de empleo; homologación y nivel de idioma pueden ser determinantes.", "official": "https://www.make-it-in-germany.com/en/visa-residence", "code": "de", "jobs": [["Make it in Germany", "https://www.make-it-in-germany.com/en/working-in-germany/job-listings"], ["EURES", "https://eures.europa.eu/index_es"]], "whAge": "18–30", "startTip": "Compará Working Holiday con una ruta profesional: WH suele simplificar la entrada, pero es temporal."}, {"name": "Francia", "flag": "🇫🇷", "region": "Europa", "ease": 72, "route": "Trabajo / talento / WH", "work": "Sí, según visa", "sponsor": "Frecuente", "wh": "Sí", "language": "Francés", "permanent": "Media/Alta", "notes": "Working Holiday disponible para argentinos dentro de sus condiciones; también existen permisos de trabajo y talento.", "official": "https://france-visas.gouv.fr/en/", "code": "fr", "jobs": [["France Travail", "https://www.francetravail.fr/"], ["EURES", "https://eures.europa.eu/index_es"]], "whAge": "18–35", "startTip": "Compará Working Holiday con una ruta profesional: WH suele simplificar la entrada, pero es temporal."}, {"name": "Irlanda", "flag": "🇮🇪", "region": "Europa", "ease": 71, "route": "Employment permit / WH", "work": "Sí, según permiso", "sponsor": "Frecuente", "wh": "Sí", "language": "Inglés", "permanent": "Media/Alta", "notes": "Mercado angloparlante de la UE. Permisos laborales diferenciados y Working Holiday para argentinos sujeto a cupos/requisitos.", "official": "https://www.irishimmigration.ie/", "code": "ie", "jobs": [["JobsIreland", "https://jobsireland.ie/"], ["EURES", "https://eures.europa.eu/index_es"]], "whAge": "Verificar límite exacto", "startTip": "Compará Working Holiday con una ruta profesional: WH suele simplificar la entrada, pero es temporal."}, {"name": "Países Bajos", "flag": "🇳🇱", "region": "Europa", "ease": 69, "route": "Highly skilled / sponsor / WH", "work": "Sí, según permiso", "sponsor": "Frecuente", "wh": "Sí", "language": "Neerlandés / Inglés", "permanent": "Media/Alta", "notes": "Excelente mercado profesional, aunque muchas rutas laborales requieren empleador reconocido.", "official": "https://ind.nl/en", "code": "nl", "jobs": [["EURES", "https://eures.europa.eu/index_es"], ["Werk.nl", "https://www.werk.nl/"]], "whAge": "Verificar límite exacto", "startTip": "Compará Working Holiday con una ruta profesional: WH suele simplificar la entrada, pero es temporal."}, {"name": "Suecia", "flag": "🇸🇪", "region": "Europa", "ease": 67, "route": "Work permit / WH", "work": "Sí, según permiso", "sponsor": "Frecuente", "wh": "Sí", "language": "Sueco / Inglés", "permanent": "Media", "notes": "Buen mercado para perfiles cualificados; Working Holiday disponible bajo el acuerdo vigente.", "official": "https://www.migrationsverket.se/English/Private-individuals.html", "code": "se", "jobs": [["Arbetsförmedlingen", "https://arbetsformedlingen.se/"], ["EURES", "https://eures.europa.eu/index_es"]], "whAge": "Verificar límite exacto", "startTip": "Compará Working Holiday con una ruta profesional: WH suele simplificar la entrada, pero es temporal."}, {"name": "Dinamarca", "flag": "🇩🇰", "region": "Europa", "ease": 66, "route": "Positive List / work schemes / WH", "work": "Sí, según permiso", "sponsor": "Frecuente", "wh": "Sí", "language": "Danés / Inglés", "permanent": "Media", "notes": "Programas laborales orientados a perfiles demandados y acuerdo Working Holiday.", "official": "https://www.nyidanmark.dk/en-GB", "code": "dk", "jobs": [["Work in Denmark", "https://www.workindenmark.dk/"], ["EURES", "https://eures.europa.eu/index_es"]], "whAge": "Verificar límite exacto", "startTip": "Compará Working Holiday con una ruta profesional: WH suele simplificar la entrada, pero es temporal."}, {"name": "Noruega", "flag": "🇳🇴", "region": "Europa", "ease": 65, "route": "Skilled worker / WH", "work": "Sí, según permiso", "sponsor": "Frecuente", "wh": "Sí", "language": "Noruego / Inglés", "permanent": "Media/Alta", "notes": "Salarios altos y costo de vida alto. Working Holiday disponible; empleo cualificado requiere condiciones específicas.", "official": "https://www.udi.no/en/want-to-apply/work-immigration/", "code": "no", "jobs": [["Arbeidsplassen", "https://arbeidsplassen.nav.no/"], ["EURES", "https://eures.europa.eu/index_es"]], "whAge": "Verificar límite exacto", "startTip": "Compará Working Holiday con una ruta profesional: WH suele simplificar la entrada, pero es temporal."}, {"name": "Austria", "flag": "🇦🇹", "region": "Europa", "ease": 64, "route": "Red-White-Red Card / WH", "work": "Sí, según permiso", "sponsor": "Frecuente", "wh": "Sí", "language": "Alemán", "permanent": "Media/Alta", "notes": "Sistema orientado a cualificaciones, ocupaciones y puntajes; también Working Holiday.", "official": "https://www.migration.gv.at/en/", "code": "at", "jobs": [["AMS Jobs", "https://jobs.ams.at/"], ["EURES", "https://eures.europa.eu/index_es"]], "whAge": "Verificar límite exacto", "startTip": "Compará Working Holiday con una ruta profesional: WH suele simplificar la entrada, pero es temporal."}, {"name": "Polonia", "flag": "🇵🇱", "region": "Europa", "ease": 63, "route": "Work permit / WH", "work": "Sí, según permiso", "sponsor": "Frecuente", "wh": "Sí", "language": "Polaco / Inglés", "permanent": "Media", "notes": "Costo de vida inferior al de Europa occidental en varias ciudades y acuerdo Working Holiday.", "official": "https://www.gov.pl/web/udsc-en", "code": "pl", "jobs": [["Praca.gov.pl", "https://www.praca.gov.pl/"], ["EURES", "https://eures.europa.eu/index_es"]], "whAge": "Verificar límite exacto", "startTip": "Compará Working Holiday con una ruta profesional: WH suele simplificar la entrada, pero es temporal."}, {"name": "Hungría", "flag": "🇭🇺", "region": "Europa", "ease": 61, "route": "Employment / WH", "work": "Sí, según permiso", "sponsor": "Frecuente", "wh": "Sí", "language": "Húngaro / Inglés", "permanent": "Media", "notes": "Working Holiday y permisos por empleo; revisar categorías vigentes, que han cambiado en años recientes.", "official": "https://enterhungary.gov.hu/eh/?en", "code": "hu", "jobs": [["EURES", "https://eures.europa.eu/index_es"]], "whAge": "Verificar límite exacto", "startTip": "Compará Working Holiday con una ruta profesional: WH suele simplificar la entrada, pero es temporal."}, {"name": "Eslovaquia", "flag": "🇸🇰", "region": "Europa", "ease": 60, "route": "Employment / WH", "work": "Sí, según permiso", "sponsor": "Frecuente", "wh": "Sí", "language": "Eslovaco / Inglés", "permanent": "Media", "notes": "Acuerdo Working Holiday y residencias ligadas a empleo.", "official": "https://www.mic.iom.sk/en/residence.html", "code": "sk", "jobs": [["EURES", "https://eures.europa.eu/index_es"]], "whAge": "Verificar límite exacto", "startTip": "Compará Working Holiday con una ruta profesional: WH suele simplificar la entrada, pero es temporal."}, {"name": "Eslovenia", "flag": "🇸🇮", "region": "Europa", "ease": 60, "route": "Work permit / WH", "work": "Sí, según permiso", "sponsor": "Frecuente", "wh": "Sí", "language": "Esloveno / Inglés", "permanent": "Media", "notes": "Working Holiday disponible y permisos combinados de residencia/trabajo.", "official": "https://www.gov.si/en/topics/entry-and-residence/", "code": "si", "jobs": [["EURES", "https://eures.europa.eu/index_es"]], "whAge": "Verificar límite exacto", "startTip": "Compará Working Holiday con una ruta profesional: WH suele simplificar la entrada, pero es temporal."}, {"name": "Armenia", "flag": "🇦🇲", "region": "Europa/Asia", "ease": 62, "route": "WH / residencia por empleo", "work": "Sí, según permiso", "sponsor": "Depende", "wh": "Sí", "language": "Armenio / Ruso / Inglés", "permanent": "Media", "notes": "Argentina mantiene acuerdo de Vacaciones y Trabajo; revisar condiciones específicas antes de viajar.", "official": "https://migration.am/", "code": "am", "jobs": [["LinkedIn Jobs", "https://www.linkedin.com/jobs/"]], "whAge": "Verificar límite exacto", "startTip": "Compará Working Holiday con una ruta profesional: WH suele simplificar la entrada, pero es temporal."}, {"name": "Australia", "flag": "🇦🇺", "region": "Oceanía", "ease": 78, "route": "Work and Holiday / Skilled / Employer Sponsored", "work": "Sí, según visa", "sponsor": "No para WH; sí en varias rutas", "wh": "Sí", "language": "Inglés", "permanent": "Alta", "notes": "Uno de los destinos más populares. La vía Work and Holiday es temporal; skilled y employer sponsored pueden conducir a residencia según categoría.", "official": "https://immi.homeaffairs.gov.au/visas/working-in-australia", "code": "au", "jobs": [["Workforce Australia", "https://www.workforceaustralia.gov.au/individuals/jobs/"]], "whAge": "18–30", "startTip": "Compará Working Holiday con una ruta profesional: WH suele simplificar la entrada, pero es temporal."}, {"name": "Nueva Zelanda", "flag": "🇳🇿", "region": "Oceanía", "ease": 76, "route": "Working Holiday / Accredited Employer / Skilled", "work": "Sí, según visa", "sponsor": "No para WH; sí en empleo", "wh": "Sí", "language": "Inglés", "permanent": "Alta", "notes": "Working Holiday para argentinos y rutas por empleo acreditado/cualificado.", "official": "https://www.immigration.govt.nz/", "code": "nz", "jobs": [["Careers NZ", "https://www.careers.govt.nz/jobs-database/"], ["SEEK NZ", "https://www.seek.co.nz/"]], "whAge": "18–35", "startTip": "Compará Working Holiday con una ruta profesional: WH suele simplificar la entrada, pero es temporal."}, {"name": "Japón", "flag": "🇯🇵", "region": "Asia", "ease": 68, "route": "Working Holiday / work visa", "work": "Sí, según visa", "sponsor": "No para WH; habitual para trabajo", "wh": "Sí", "language": "Japonés", "permanent": "Media", "notes": "Working Holiday disponible. Para carrera a largo plazo, el idioma y el tipo de profesión pesan mucho.", "official": "https://www.mofa.go.jp/j_info/visit/visa/index.html", "code": "jp", "jobs": [["Hello Work", "https://www.mhlw.go.jp/english/policy/employ-labour/employment-security/foreignworkers.html"]], "whAge": "Verificar límite exacto", "startTip": "Compará Working Holiday con una ruta profesional: WH suele simplificar la entrada, pero es temporal."}, {"name": "Corea del Sur", "flag": "🇰🇷", "region": "Asia", "ease": 66, "route": "Working Holiday / employment", "work": "Sí, según visa", "sponsor": "No para WH; habitual para trabajo", "wh": "Sí", "language": "Coreano", "permanent": "Media", "notes": "Acuerdo Working Holiday y diversas visas de empleo. Mercado competitivo; idioma suma mucho.", "official": "https://www.visa.go.kr/", "code": "kr", "jobs": [["Work24", "https://www.work24.go.kr/"]], "whAge": "Verificar límite exacto", "startTip": "Compará Working Holiday con una ruta profesional: WH suele simplificar la entrada, pero es temporal."}, {"name": "Canadá", "flag": "🇨🇦", "region": "Norteamérica", "ease": 70, "route": "Express Entry / PNP / work permit / study", "work": "Sí, según permiso", "sponsor": "Depende", "wh": "No acuerdo bilateral general listado por Cancillería", "language": "Inglés / Francés", "permanent": "Alta", "notes": "Sistema amplio pero competitivo. Express Entry y programas provinciales dependen de edad, idioma, estudios y experiencia.", "official": "https://www.canada.ca/en/services/immigration-citizenship.html", "code": "ca", "jobs": [["Job Bank — extranjeros", "https://www.jobbank.gc.ca/findajob/foreign-candidates"]], "whAge": "No aplica", "startTip": "Confirmá primero la categoría migratoria viable y orientá el CV a empleadores compatibles con esa ruta."}, {"name": "Estados Unidos", "flag": "🇺🇸", "region": "Norteamérica", "ease": 45, "route": "H-1B / L-1 / O-1 / EB / otras", "work": "Sí, con estatus autorizado", "sponsor": "Muy frecuente", "wh": "No", "language": "Inglés", "permanent": "Variable", "notes": "Muchas rutas, pero para empleo convencional suele ser más complejo y depender de sponsor, lotería o categorías profesionales/inmigrantes específicas.", "official": "https://travel.state.gov/content/travel/en/us-visas/employment.html", "code": "us", "jobs": [["USAJOBS", "https://www.usajobs.gov/"], ["LinkedIn Jobs", "https://www.linkedin.com/jobs/"]], "whAge": "No aplica", "startTip": "Confirmá primero la categoría migratoria viable y orientá el CV a empleadores compatibles con esa ruta."}, {"name": "Reino Unido", "flag": "🇬🇧", "region": "Europa", "ease": 62, "route": "Skilled Worker / Global Talent / otras", "work": "Sí, según visa", "sponsor": "Frecuente", "wh": "No acuerdo WH argentino listado por Cancillería", "language": "Inglés", "permanent": "Alta", "notes": "Skilled Worker requiere normalmente empleador sponsor autorizado; Global Talent apunta a perfiles destacados.", "official": "https://www.gov.uk/browse/visas-immigration/work-visas", "code": "gb", "jobs": [["GOV.UK — Find a job", "https://www.gov.uk/find-a-job"]], "whAge": "No aplica", "startTip": "Priorizá empresas que ya contratan extranjeros o figuran como sponsors; evitá postulaciones indiscriminadas."}, {"name": "Italia", "flag": "🇮🇹", "region": "Europa", "ease": 58, "route": "Trabajo / autónomo / digital nomad / ciudadanía si corresponde", "work": "Sí, según permiso", "sponsor": "Frecuente en empleo", "wh": "No", "language": "Italiano", "permanent": "Alta", "notes": "Las rutas laborales para no-UE pueden estar sujetas a cupos. Si existe ciudadanía italiana por ascendencia, el escenario cambia completamente.", "official": "https://vistoperitalia.esteri.it/home/en", "code": "it", "jobs": [["Cliclavoro", "https://www.cliclavoro.gov.it/"], ["EURES", "https://eures.europa.eu/index_es"]], "whAge": "No aplica", "startTip": "Confirmá primero la categoría migratoria viable y orientá el CV a empleadores compatibles con esa ruta."}, {"name": "Bélgica", "flag": "🇧🇪", "region": "Europa", "ease": 59, "route": "Single Permit / EU Blue Card", "work": "Sí, según permiso", "sponsor": "Frecuente", "wh": "No", "language": "Francés / Neerlandés / Alemán", "permanent": "Media/Alta", "notes": "Permiso único para residencia y trabajo; requisitos varían por región.", "official": "https://dofi.ibz.be/en", "code": "be", "jobs": [["EURES", "https://eures.europa.eu/index_es"]], "whAge": "No aplica", "startTip": "Priorizá empresas que ya contratan extranjeros o figuran como sponsors; evitá postulaciones indiscriminadas."}, {"name": "Finlandia", "flag": "🇫🇮", "region": "Europa", "ease": 60, "route": "Specialist / employed person / startup", "work": "Sí, según permiso", "sponsor": "Frecuente", "wh": "No", "language": "Finés / Sueco / Inglés", "permanent": "Media/Alta", "notes": "Buenas vías para especialistas, tecnología y emprendimiento; costo de vida elevado.", "official": "https://migri.fi/en/working-in-finland", "code": "fi", "jobs": [["Job Market Finland", "https://tyomarkkinatori.fi/en"], ["EURES", "https://eures.europa.eu/index_es"]], "whAge": "No aplica", "startTip": "Priorizá empresas que ya contratan extranjeros o figuran como sponsors; evitá postulaciones indiscriminadas."}, {"name": "Chequia", "flag": "🇨🇿", "region": "Europa", "ease": 58, "route": "Employee Card / Blue Card", "work": "Sí, según permiso", "sponsor": "Frecuente", "wh": "No", "language": "Checo / Inglés", "permanent": "Media", "notes": "Employee Card y Blue Card son rutas típicas para nacionales de terceros países.", "official": "https://frs.gov.cz/en/", "code": "cz", "jobs": [["EURES", "https://eures.europa.eu/index_es"]], "whAge": "No aplica", "startTip": "Priorizá empresas que ya contratan extranjeros o figuran como sponsors; evitá postulaciones indiscriminadas."}, {"name": "Suiza", "flag": "🇨🇭", "region": "Europa", "ease": 42, "route": "Work permit para terceros países", "work": "Sí, con permiso", "sponsor": "Sí, normalmente", "wh": "No", "language": "Alemán / Francés / Italiano", "permanent": "Media", "notes": "Salarios altos pero acceso laboral más restringido para no UE/EFTA; suele priorizarse alta cualificación.", "official": "https://www.sem.admin.ch/sem/en/home/themen/arbeit.html", "code": "ch", "jobs": [["EURES", "https://eures.europa.eu/index_es"]], "whAge": "No aplica", "startTip": "Confirmá primero la categoría migratoria viable y orientá el CV a empleadores compatibles con esa ruta."}, {"name": "Emiratos Árabes Unidos", "flag": "🇦🇪", "region": "Asia", "ease": 64, "route": "Employment / Green / Golden visas", "work": "Sí, según visa", "sponsor": "Frecuente", "wh": "No", "language": "Árabe / Inglés", "permanent": "Baja", "notes": "Mercado internacional y tributación atractiva para muchos perfiles, pero el concepto de residencia permanente es distinto al europeo/americano.", "official": "https://u.ae/en/information-and-services/visa-and-emirates-id", "code": "ae", "jobs": [["UAE Jobs", "https://u.ae/en/information-and-services/jobs"], ["LinkedIn Jobs", "https://www.linkedin.com/jobs/"]], "whAge": "No aplica", "startTip": "Priorizá empresas que ya contratan extranjeros o figuran como sponsors; evitá postulaciones indiscriminadas."}, {"name": "Singapur", "flag": "🇸🇬", "region": "Asia", "ease": 48, "route": "Employment Pass / S Pass", "work": "Sí, según pase", "sponsor": "Sí", "wh": "No", "language": "Inglés", "permanent": "Variable", "notes": "Muy competitivo y orientado a perfiles profesionales con salarios/credenciales determinados.", "official": "https://www.mom.gov.sg/passes-and-permits", "code": "sg", "jobs": [["MyCareersFuture", "https://www.mycareersfuture.gov.sg/"], ["LinkedIn Jobs", "https://www.linkedin.com/jobs/"]], "whAge": "No aplica", "startTip": "Priorizá empresas que ya contratan extranjeros o figuran como sponsors; evitá postulaciones indiscriminadas."}, {"name": "México", "flag": "🇲🇽", "region": "Norteamérica", "ease": 67, "route": "Residencia temporal con permiso de trabajo / oferta", "work": "Sí, con autorización", "sponsor": "Depende", "wh": "No", "language": "Español", "permanent": "Media/Alta", "notes": "Idioma favorable para argentinos. Hay residencia temporal por solvencia y rutas asociadas a oferta laboral; trabajar requiere autorización correspondiente.", "official": "https://www.gob.mx/inm", "code": "mx", "jobs": [["Servicio Nacional de Empleo", "https://www.empleo.gob.mx/"], ["LinkedIn Jobs", "https://www.linkedin.com/jobs/"]], "whAge": "No aplica", "startTip": "Confirmá primero la categoría migratoria viable y orientá el CV a empleadores compatibles con esa ruta."}, {"name": "Costa Rica", "flag": "🇨🇷", "region": "Centroamérica", "ease": 60, "route": "Residencia / nómada digital / categorías especiales", "work": "Limitado según categoría", "sponsor": "Depende", "wh": "No", "language": "Español", "permanent": "Media", "notes": "Atractiva para remoto y estilo de vida; no todas las residencias temporales permiten empleo local.", "official": "https://www.migracion.go.cr/", "code": "cr", "jobs": [["ANE", "https://www.ane.cr/"], ["LinkedIn Jobs", "https://www.linkedin.com/jobs/"]], "whAge": "No aplica", "startTip": "Confirmá primero la categoría migratoria viable y orientá el CV a empleadores compatibles con esa ruta."}, {"name": "Panamá", "flag": "🇵🇦", "region": "Centroamérica", "ease": 58, "route": "Residencias y permisos laborales", "work": "Sí, según permiso", "sponsor": "Depende", "wh": "No", "language": "Español", "permanent": "Media", "notes": "Centro regional de negocios. La residencia y el permiso de trabajo son conceptos que pueden requerir trámites separados.", "official": "https://www.migracion.gob.pa/", "code": "pa", "jobs": [["MITRADEL", "https://www.mitradel.gob.pa/"], ["LinkedIn Jobs", "https://www.linkedin.com/jobs/"]], "whAge": "No aplica", "startTip": "Confirmá primero la categoría migratoria viable y orientá el CV a empleadores compatibles con esa ruta."}], $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];const cards=$('#cards'),compare=$('#compare'),dlg=$('#dlg'),body=$('#modalBody');let mode='all',selected=[];const flag=x=>`https://flagcdn.com/w160/${x.code}.png`;[...new Set(data.map(x=>x.region))].sort().forEach(r=>$('#region').insertAdjacentHTML('beforeend',`<option>${r}</option>`));
+function ageInfo(){const a=+$('#age').value||0;if(a<18)return['Todavía no aplican las rutas laborales estándar.','Usá este tiempo para idioma, estudios y experiencia.'];if(a<=30)return['Tenés el abanico más amplio.','Además de residencia, skilled y sponsor, tu edad entra en el rango habitual de muchos Working Holiday.'];if(a<=35)return['Todavía hay Working Holiday en algunos destinos.','Ya quedás fuera de algunos programas 18–30, pero ciertos acuerdos llegan a 35. Priorizá también rutas profesionales.'];return['La estrategia cambia: menos WH, más carrera.','Enfocate en MERCOSUR/regionales, skilled worker, sponsor, estudios, talento, autónomos o nómada digital según tu perfil.']}
+function ageTag(x){const a=+$('#age').value||0;if(x.wh!=='Sí')return['Edad: sin dependencia WH',''];if(x.whAge==='18–30')return a>=18&&a<=30?[`WH ${x.whAge}: tu edad encaja`,'good']:[`WH ${x.whAge}: fuera de rango`,'warn'];if(x.whAge==='18–35')return a>=18&&a<=35?[`WH ${x.whAge}: tu edad encaja`,'good']:[`WH ${x.whAge}: fuera de rango`,'warn'];if(a<=30)return['WH: edad probablemente compatible; verificá acuerdo','good'];if(a<=35)return['WH: puede ser posible; verificá límite exacto','warn'];return['WH: probablemente fuera de rango; mirá otras visas','warn']}
+function ageEligible(x){const a=+$('#age').value||0;if(/mercosur|regional/i.test(x.route))return true;if(x.wh==='Sí'){if(x.whAge==='18–30')return a>=18&&a<=30;if(x.whAge==='18–35')return a>=18&&a<=35;return a>=18&&a<=35}return ['Alta','Media/Alta'].includes(x.permanent)||['Sí','Frecuente','Depende'].includes(x.sponsor)}
+function updateAge(){const i=ageInfo();$('#ageResult').innerHTML=`<b>${i[0]}</b><p>${i[1]}</p>`;filt()}
+function filt(){let arr=data.filter(x=>{const hay=(x.name+' '+x.route+' '+x.language+' '+x.notes).toLowerCase().includes($('#q').value.toLowerCase());let mm=mode==='all'||(mode==='age'&&ageEligible(x))||(mode==='easy'&&x.ease>=80)||(mode==='mercosur'&&(/mercosur|regional/i.test(x.route)||['Chile','Colombia'].includes(x.name)))||(mode==='wh'&&x.wh==='Sí')||(mode==='long'&&['Alta','Media/Alta'].includes(x.permanent));return hay&&(!$('#region').value||x.region===$('#region').value)&&(!$('#wh').value||x.wh===$('#wh').value)&&(!$('#sponsor').value||x.sponsor===$('#sponsor').value)&&mm});arr.sort((a,b)=>$('#sort').value==='name'?a.name.localeCompare(b.name):b.ease-a.ease);render(arr)}
+function render(arr){$('#counter').textContent=`${arr.length} destinos encontrados`;cards.innerHTML=arr.map(x=>{const a=ageTag(x);return `<article class="card"><div class="top"><img class="flag" src="${flag(x)}" alt=""><span class="score">${x.ease}/100 · orientativo</span></div><h3>${x.name}</h3><div class="route">${x.route}</div><div class="desc">${x.notes}</div><div class="facts"><div class="fact"><small>Sponsor</small><b>${x.sponsor}</b></div><div class="fact"><small>Idioma</small><b>${x.language}</b></div><div class="fact"><small>Trabajo</small><b>${x.work}</b></div><div class="fact"><small>Permanencia</small><b>${x.permanent}</b></div></div><div class="age-tag ${a[1]}">${a[0]}</div><div class="actions"><button data-detail="${x.name}">Ver guía</button><button class="primary" data-compare="${x.name}">${selected.includes(x.name)?'✓ Comparando':'Comparar'}</button></div></article>`}).join('');$$('[data-detail]').forEach(b=>b.onclick=()=>detail(b.dataset.detail));$$('[data-compare]').forEach(b=>b.onclick=()=>toggle(b.dataset.compare))}
+function detail(n){const x=data.find(a=>a.name===n),a=ageTag(x),jl=x.jobs.map(j=>`<a href="${j[1]}" target="_blank">${j[0]} ↗</a>`).join('');body.innerHTML=`<img class="flag" src="${flag(x)}" alt=""><h2>${x.name}</h2><div class="route">${x.route}</div><p class="desc">${x.notes}</p><div class="modal-grid"><div><small>Trabajo</small><br><b>${x.work}</b></div><div><small>Sponsor</small><br><b>${x.sponsor}</b></div><div><small>Working Holiday</small><br><b>${x.wh}${x.wh==='Sí'?' · '+x.whAge:''}</b></div><div><small>Permanencia</small><br><b>${x.permanent}</b></div></div><div class="age-tag ${a[1]}">${a[0]}</div><h3>Cómo empezaría</h3><p class="desc">${x.startTip}</p><h3>Dónde buscar trabajo</h3><div class="joblinks">${jl}</div><h3>Primeros pasos</h3><ol class="checklist"><li>Confirmá visa o residencia en el portal migratorio oficial.</li><li>Revisá si tu profesión exige homologación o matrícula.</li><li>Prepará CV y LinkedIn en idioma/formato local.</li><li>Buscá vacantes compatibles con extranjeros y sponsor cuando corresponda.</li><li>Prepará antecedentes, apostillas, títulos, referencias, fondos y seguro.</li><li>No asumas que entrar como turista habilita a trabajar.</li></ol><a class="official" href="${x.official}" target="_blank">Fuente migratoria oficial ↗</a>`;dlg.showModal()}
+function toggle(n){selected.includes(n)?selected=selected.filter(v=>v!==n):selected.length<3&&selected.push(n);drawCompare();filt()}function drawCompare(){compare.innerHTML=selected.length?selected.map(n=>{const x=data.find(a=>a.name===n),a=ageTag(x);return `<article><img src="${flag(x)}"><h3>${x.name}</h3><p><b>${x.route}</b><br><br>Sponsor: ${x.sponsor}<br>WH: ${x.wh}${x.wh==='Sí'?' · '+x.whAge:''}<br>Idioma: ${x.language}<br>Permanencia: ${x.permanent}<br><br>${a[0]}</p><button class="btn" data-remove="${x.name}">Quitar</button></article>`}).join(''):'<div class="empty">Elegí “Comparar” en hasta 3 países.</div>';$$('[data-remove]').forEach(b=>b.onclick=()=>toggle(b.dataset.remove))}
+['q','region','wh','sponsor','sort'].forEach(id=>$('#'+id).addEventListener(id==='q'?'input':'change',filt));$$('.chip').forEach(b=>b.onclick=()=>{$$('.chip').forEach(x=>x.classList.remove('active'));b.classList.add('active');mode=b.dataset.mode;filt()});$('#age').addEventListener('input',updateAge);$('#close').onclick=()=>dlg.close();dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});updateAge();drawCompare();renderProfileList();
 </script></body></html>
